@@ -2,11 +2,17 @@ package com.wulinpeng.daiylreader.api;
 
 import com.wulinpeng.daiylreader.entity.BookDetail;
 import com.wulinpeng.daiylreader.entity.BookListResponse;
+import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
+import com.wulinpeng.daiylreader.entity.CatResponse;
+import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.entity.RankingResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookListResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookResponse;
 import com.wulinpeng.daiylreader.entity.ReviewResponse;
 import com.wulinpeng.daiylreader.entity.SearchResponse;
+
+import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -89,5 +95,32 @@ public interface ReaderApi {
     @GET("mix-atoc/{id}?view=chapters")
     Observable<ChaptersResponse> getChapters(@Path("id") String id);
 
+    /**
+     * 获取小说章节内容
+     * @param link
+     * @return
+     */
+    @GET("http://chapter2.zhuishushenqi.com/chapter/{link}")
+    Observable<ChapterDetailResponse> getChapterDetail(@Path("link") String link);
+
+    /**
+     * 获取小说更新信息，返回数组，id可以是多个小说id用'，'隔开
+     * @param id
+     * @return
+     */
+    @GET("book?view=updated")
+    Observable<List<BookUpdateInfo>> getBookUpdateInfo(@Query("id") String id);
+
+    /**
+     * 获取分类信息
+     * @return
+     */
+    @GET("cats/lv2/statistics")
+    Observable<CatResponse> getCategoryInfo();
+
+
+
+    @GET("ranking/{type}")
+    Observable<RankingResponse> getRanking(@Path("type") String type);
 
 }

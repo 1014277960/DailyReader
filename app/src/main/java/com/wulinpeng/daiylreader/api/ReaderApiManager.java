@@ -3,16 +3,21 @@ package com.wulinpeng.daiylreader.api;
 import com.wulinpeng.daiylreader.base.Constant;
 import com.wulinpeng.daiylreader.entity.BookDetail;
 import com.wulinpeng.daiylreader.entity.BookListResponse;
+import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
+import com.wulinpeng.daiylreader.entity.CatResponse;
+import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.entity.RankingResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookListResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookResponse;
 import com.wulinpeng.daiylreader.entity.ReviewResponse;
 import com.wulinpeng.daiylreader.entity.SearchResponse;
 
+import java.util.List;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -80,5 +85,21 @@ public class ReaderApiManager {
 
     public Observable<ChaptersResponse> getChapters(String id) {
         return mReaderApi.getChapters(id);
+    }
+
+    public Observable<ChapterDetailResponse> getChapterDetail(String link) {
+        return mReaderApi.getChapterDetail(link);
+    }
+
+    public Observable<List<BookUpdateInfo>> getBookUpdateInfo(String id) {
+        return mReaderApi.getBookUpdateInfo(id);
+    }
+
+    public Observable<CatResponse> getCategoryInfo() {
+        return mReaderApi.getCategoryInfo();
+    }
+
+    public Observable<RankingResponse> getRanking(String type) {
+        return mReaderApi.getRanking(type);
     }
 }
