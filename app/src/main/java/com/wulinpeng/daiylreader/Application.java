@@ -12,14 +12,15 @@ import io.realm.RealmConfiguration;
  */
 public class Application extends android.app.Application {
 
-     public static Context context;
+     private static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-        // 设置Realm默认配置
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).schemaVersion(0).build();
-        Realm.setDefaultConfiguration(realmConfiguration);
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

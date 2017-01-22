@@ -16,5 +16,5 @@ public class Constant {
     // 追书完结榜（周／月／总）
     public static final String[] RANKING_END = {"564eb878efe5b8e745508fde", "564eb12c3edb8b45511139ff", "564eea0b731ade4d6c509493"};
     // 本周潜力榜
-    public static final String[] potential = {"54d42e72d9de23382e6877fb"};
+    public static final String[] RANKING_POTENTIAL = {"54d42e72d9de23382e6877fb"};
 }
