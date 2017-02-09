@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 这里必须是改变状态在上面-->
+    <!-- 只能有一个勾选-->
+    <item  android:state_checked="true" android:drawable="@drawable/rb_click1"></item>
+    <item  android:drawable="@drawable/rb_1"/>
+</selector>

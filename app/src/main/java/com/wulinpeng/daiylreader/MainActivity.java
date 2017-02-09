@@ -15,6 +15,7 @@ import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
 import com.wulinpeng.daiylreader.entity.SearchResponse;
 import com.wulinpeng.daiylreader.manager.CacheManager;
+import com.wulinpeng.daiylreader.read.ReadView;
 import com.wulinpeng.daiylreader.util.CacheHelper;
 import com.wulinpeng.daiylreader.util.FileUtil;
 import com.wulinpeng.daiylreader.util.RxUtil;
@@ -28,16 +29,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        StatusBarUtil.compat(this, getResources().getColor(R.color.colorPrimary));
+        //setContentView(R.layout.activity_main);
+        //StatusBarUtil.compat(this, getResources().getColor(R.color.colorPrimary));
 
-        ReaderApiManager.getInstance().getChapterDetail("http://www.17k.com/chapter/367975/8098369.html")
+        ReaderApiManager.getInstance().getChapters("51651e375a29ee6a5e0000af")
                 .compose(RxUtil.rxScheduler())
-                .subscribe(chapterDetailResponse -> deal(chapterDetailResponse));
+                .subscribe(chaptersResponse -> deal(chaptersResponse));
     }
 
-    private void deal(ChapterDetailResponse chapterDetailResponse) {
-        CacheManager.getInstance().saveChapter("51651e375a29ee6a5e0000af", 1, chapterDetailResponse.getChapter());
-        Log.d("Debug", CacheManager.getInstance().getChapter("51651e375a29ee6a5e0000af", 1).toString());
+    private void deal(ChaptersResponse chaptersResponse) {
+        ReadView readView = new ReadView(this, chaptersResponse.getMixToc());
+        setContentView(readView);
     }
 }
