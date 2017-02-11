@@ -15,7 +15,11 @@ import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.api.ReaderApiManager;
 import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.manager.CacheManager;
+import com.wulinpeng.daiylreader.read.event.OnChapterLoadEvent;
 import com.wulinpeng.daiylreader.util.RxUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,13 +34,6 @@ import static com.wulinpeng.daiylreader.Application.getContext;
  * @description:
  */
 public class BookFactory {
-
-    public interface OpenBookListener {
-        public void onSuccess();
-        public void onError(String error);
-    }
-
-    private OpenBookListener mListener;
 
     /**
      * 翻页的状态,如果是新章节且内存中没有那么可能会有网络请求那就是异步，就不能直接draw了，等待读取完毕再调用接口通知draw
@@ -66,10 +63,6 @@ public class BookFactory {
     // 根据当前格式处理后的章节内容
     private Map<Integer, List<List<String>>> mFormatChapters = new HashMap<>();
     private ChapterDetailResponse.Chapter mCurrentChapter;
-
-    public void setOpenListener(OpenBookListener listener) {
-        mListener = listener;
-    }
 
     public BookFactory(ChaptersResponse.MixToc chaptersInfo){
         this.mChaptersInfo = chaptersInfo;
@@ -106,32 +99,55 @@ public class BookFactory {
      */
     public int openBook(int chapter, int start) {
         mCurrentChapterIndex = chapter;
+        mTitle = mChaptersInfo.getChapters().get(chapter).getTitle();
         if (mFormatChapters.get(mCurrentChapterIndex) == null) {
-            ReaderApiManager.getInstance().getChapterDetail(mChaptersInfo.getChapters().get(chapter).getLink())
-                    .compose(RxUtil.rxScheduler())
-                    .subscribe(chapterDetailResponse -> deal(chapterDetailResponse, start));
-            return STATE_ASYN;
+            // 缓存没有到内存拿
+            if (getChapterFromCache(chapter, start)) {
+                return STATE_SUCCESS;
+            } else {
+                getChapterFromNet(chapter, start);
+                return STATE_ASYN;
+            }
         } else {
             // 是0就就是0，否则1不影响
             mCurrentPage = (mFormatChapters.get(mCurrentChapterIndex).size() - 1) * start;
-            mTitle = mChaptersInfo.getChapters().get(chapter).getTitle();
             return STATE_SUCCESS;
         }
     }
 
-    private void deal(ChapterDetailResponse response, int start) {
-        mCurrentPage = 0;
-        mCurrentChapter = response.getChapter();
-        mTitle = mCurrentChapter.getTitle();
-        formatChapter(mCurrentChapter);
-        if (start == 1) {
-            mCurrentPage = mFormatChapters.get(mCurrentChapterIndex).size() - 1;
-        }
-        if (mListener != null) {
-            mListener.onSuccess();
+    private boolean getChapterFromCache(int chapter, int start) {
+        ChapterDetailResponse.Chapter c = CacheManager.getInstance().getChapter(mChaptersInfo.getBook(), chapter);
+        if (c != null) {
+            formatChapter(c);
+            mCurrentPage = (mFormatChapters.get(mCurrentChapterIndex).size() - 1) * start;
+            return true;
+        } else {
+            return false;
         }
     }
 
+    private void getChapterFromNet(int chapter, int start) {
+        ReaderApiManager.getInstance().getChapterDetail(mChaptersInfo.getChapters().get(chapter).getLink())
+                .compose(RxUtil.rxScheduler())
+                .subscribe(chapterDetailResponse -> dealResponse(chapterDetailResponse, start));
+    }
+
+    private void dealResponse(ChapterDetailResponse response, int start) {
+        mCurrentPage = 0;
+        mCurrentChapter = response.getChapter();
+        formatChapter(mCurrentChapter);
+        mCurrentPage = (mFormatChapters.get(mCurrentChapterIndex).size() - 1) * start;
+
+        EventBus.getDefault().post(new OnChapterLoadEvent());
+
+        // 保存数据到本地
+        CacheManager.getInstance().saveChapter(mChaptersInfo.getBook(), mCurrentChapterIndex, response.getChapter());
+    }
+
+    /**
+     * 格式化章节内容
+     * @param chapter
+     */
     private void formatChapter(ChapterDetailResponse.Chapter chapter) {
         boolean isFirstPage = true;
         boolean isEnded = false;

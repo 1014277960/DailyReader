@@ -1,7 +1,8 @@
-package com.wulinpeng.daiylreader.read;
+package com.wulinpeng.daiylreader.read.ui;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
@@ -12,14 +13,26 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Region;
 import android.graphics.drawable.GradientDrawable;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Scroller;
 import android.widget.Toast;
 
+import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.read.BookFactory;
+import com.wulinpeng.daiylreader.read.event.OnChapterLoadEvent;
+import com.wulinpeng.daiylreader.read.event.RecycleBitmapEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import static com.wulinpeng.daiylreader.Application.getContext;
 
 /**
  * @author wulinpeng
@@ -38,6 +51,8 @@ public class ReadView extends View {
     Bitmap mNextBitmap;
     Canvas mCurrentCanvas;
     Canvas mNextCanvas;
+
+    Bitmap mBackgroundBitmap;
 
     Context mContext;
 
@@ -79,25 +94,15 @@ public class ReadView extends View {
 
     BookFactory mBookFactory;
 
-    public ReadView(Context context, ChaptersResponse.MixToc info) {
-        super(context);
+    /**
+     * 在等待异步数据
+     */
+    boolean mIsAsyn = false;
+
+    public ReadView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
         this.mContext = context;
-
-        mBookFactory = new BookFactory(info);
-        mBookFactory.setOpenListener(new BookFactory.OpenBookListener() {
-            @Override
-            public void onSuccess() {
-                mBookFactory.draw(mCurrentCanvas);
-                mBookFactory.draw(mNextCanvas);
-                ReadView.this.postInvalidate();
-            }
-
-            @Override
-            public void onError(String error) {
-
-            }
-        });
-        mBookFactory.openBook(0, 0);
+        EventBus.getDefault().register(this);
 
         mPath1 = new Path();
         mPath2 = new Path();
@@ -113,6 +118,8 @@ public class ReadView extends View {
         mNextBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mNextCanvas = new Canvas(mNextBitmap);
 
+        mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg_read);
+
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.WHITE);
@@ -125,6 +132,18 @@ public class ReadView extends View {
         mScroller = new Scroller(getContext());
         mTouch.x = 0.1f;
         mTouch.y = 0.1f;
+
+    }
+
+    public void setBookFactory(BookFactory bookFactory) {
+        mBookFactory = bookFactory;
+        int state = mBookFactory.openBook(0, 0);
+        if (state == BookFactory.STATE_SUCCESS) {
+            mBookFactory.draw(mCurrentCanvas);
+            invalidate();
+        } else if (state == BookFactory.STATE_ASYN) {
+            mIsAsyn = true;
+        }
     }
 
     private void getWidthAndHeight() {
@@ -140,22 +159,26 @@ public class ReadView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (mBookFactory == null || mIsAsyn) {
+            // 还未设置bookFactory
+            return false;
+        }
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             mTouch.x = event.getRawX();
             mTouch.y = event.getRawY();
-            // 中断动画
-            abortAnimation();
             calcCornerXY(mTouch.x, mTouch.y);
             // 绘制当前页面
             mBookFactory.draw(mCurrentCanvas);
             int state = -1;
             //向右
-            if(DragToRight()){
+            if(DragToRight()) {
                 state = mBookFactory.prePage();
-            }else{
+            } else {
                 state = mBookFactory.nextPage();
             }
             if (state == BookFactory.STATE_SUCCESS) {
+                // 中断动画
+                abortAnimation();
                 mBookFactory.draw(mNextCanvas);
             } else if (state == BookFactory.STATE_NULL) {
                 if (DragToRight()) {
@@ -163,17 +186,19 @@ public class ReadView extends View {
                 } else {
                     Toast.makeText(getContext(), "最后一页了哦", Toast.LENGTH_SHORT).show();
                 }
-                // 直接返回，不invalidate
-                return true;
+                // 直接返回false，不invalidate,不接受接下来的action
+                return false;
             } else {
                 // 下一章或者上一章的时候需要时间加载，那么直接启动动画翻页，然后当前页就是bg,然后等待
                 // todo 禁止操作直到加载出来
+                mIsAsyn = true;
                 mNextCanvas.drawBitmap(mBookFactory.getmBackgroundBitmap(), 0, 0, null);
                 startAnimation(700);
                 Toast.makeText(getContext(), "正在加载", Toast.LENGTH_SHORT).show();
             }
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            Log.d("Debug", "move" + System.currentTimeMillis());
             mTouch.x = event.getRawX();
             mTouch.y = event.getRawY();
         }
@@ -194,6 +219,39 @@ public class ReadView extends View {
         }
         this.invalidate();
         return true;
+    }
+
+    /**
+     * 异步加载完成
+     * @param event
+     */
+    @Subscribe
+    public void onChapterLoad(OnChapterLoadEvent event) {
+        mBookFactory.draw(mCurrentCanvas);
+        mBookFactory.draw(mNextCanvas);
+        invalidate();
+        mIsAsyn = false;
+    }
+
+    @Subscribe
+    public void recycleBitmap(RecycleBitmapEvent event) {
+        mCurrentBitmap.recycle();
+        mNextBitmap.recycle();
+        mBackgroundBitmap.recycle();
+
+        mCurrentBitmap = null;
+        mNextBitmap = null;
+        mBackgroundBitmap = null;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        canvas.drawColor(0xFFAAAAAA);
+        calcPoints();
+        drawCurrentPageArea(canvas, mCurrentBitmap);
+        drawNextPageAreaAndShadow(canvas, mNextBitmap);
+        drawCurrentPageShadow(canvas);
+        drawCurrentBackArea(canvas, mCurrentBitmap);
     }
 
     /**
@@ -359,16 +417,6 @@ public class ReadView extends View {
         canvas.restore();
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.drawColor(0xFFAAAAAA);
-        calcPoints();
-        drawCurrentPageArea(canvas, mCurrentBitmap);
-        drawNextPageAreaAndShadow(canvas, mNextBitmap);
-        drawCurrentPageShadow(canvas);
-        drawCurrentBackArea(canvas, mCurrentBitmap);
-    }
-
 
     private void createDrawable() {
         int[] color = { 0x333333, 0xB0333333 };
@@ -526,7 +574,7 @@ public class ReadView extends View {
         canvas.clipPath(mPath1);
         canvas.clipPath(mPath2, Region.Op.INTERSECT);
         // 由于对称过来的时候会有一部分不能填满，所以先画背景填满
-        canvas.drawBitmap(mBookFactory.getmBackgroundBitmap(), 0, 0, null);
+        canvas.drawBitmap(mBackgroundBitmap, 0, 0, null);
         canvas.drawBitmap(bitmap, matrix, null);
         canvas.restore();
     }
@@ -592,7 +640,7 @@ public class ReadView extends View {
     }
 
     public boolean canDragOver() {
-        if (mTouchCornerDis > mWidth / 10)
+        if (mTouchCornerDis > mWidth / 6)
             return true;
         return false;
     }
