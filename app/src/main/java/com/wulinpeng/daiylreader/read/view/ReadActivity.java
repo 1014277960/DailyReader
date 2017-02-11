@@ -9,10 +9,10 @@ import android.view.WindowManager;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
-import com.wulinpeng.daiylreader.read.BookFactory;
 import com.wulinpeng.daiylreader.read.contract.ReadViewInterface;
 import com.wulinpeng.daiylreader.read.event.RecycleBitmapEvent;
 import com.wulinpeng.daiylreader.read.presenter.ReadPresenterImp;
+import com.wulinpeng.daiylreader.read.ui.BookFactory;
 import com.wulinpeng.daiylreader.read.ui.ReadView;
 
 import org.greenrobot.eventbus.EventBus;

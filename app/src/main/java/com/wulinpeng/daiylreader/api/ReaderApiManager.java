@@ -7,6 +7,7 @@ import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
 import com.wulinpeng.daiylreader.entity.CatResponse;
 import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.entity.HotWordsResponse;
 import com.wulinpeng.daiylreader.entity.RankingResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookListResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookResponse;
@@ -65,6 +66,10 @@ public class ReaderApiManager {
 
     public Observable<SearchResponse> searchBooks(String word, int start, int limit) {
         return mReaderApi.searchBooks(word, start, limit);
+    }
+
+    public Observable<HotWordsResponse> getHotWords() {
+        return mReaderApi.getHotWords();
     }
 
     public Observable<BookDetail> getBookDetail(String id) {

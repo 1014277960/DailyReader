@@ -6,6 +6,7 @@ import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
 import com.wulinpeng.daiylreader.entity.CatResponse;
 import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.entity.HotWordsResponse;
 import com.wulinpeng.daiylreader.entity.RankingResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookListResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookResponse;
@@ -53,6 +54,9 @@ public interface ReaderApi {
      */
     @GET("book/fuzzy-search")
     Observable<SearchResponse> searchBooks(@Query("query") String word, @Query("start") int start, @Query("limit") int limit);
+
+    @GET("book/hot-word")
+    Observable<HotWordsResponse> getHotWords();
 
     /**
      * 获取书籍详细信息
@@ -118,8 +122,11 @@ public interface ReaderApi {
     @GET("cats/lv2/statistics")
     Observable<CatResponse> getCategoryInfo();
 
-
-
+    /**
+     * 获取榜单信息
+     * @param type
+     * @return
+     */
     @GET("ranking/{type}")
     Observable<RankingResponse> getRanking(@Path("type") String type);
 

@@ -24,15 +24,11 @@ import android.widget.Scroller;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.entity.ChaptersResponse;
-import com.wulinpeng.daiylreader.read.BookFactory;
 import com.wulinpeng.daiylreader.read.event.OnChapterLoadEvent;
 import com.wulinpeng.daiylreader.read.event.RecycleBitmapEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import static com.wulinpeng.daiylreader.Application.getContext;
 
 /**
  * @author wulinpeng
