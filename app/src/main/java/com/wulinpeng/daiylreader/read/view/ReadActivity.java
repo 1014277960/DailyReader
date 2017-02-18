@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
-import com.wulinpeng.daiylreader.read.contract.ReadViewInterface;
+import com.wulinpeng.daiylreader.read.contract.IReadView;
 import com.wulinpeng.daiylreader.read.event.RecycleBitmapEvent;
 import com.wulinpeng.daiylreader.read.presenter.ReadPresenterImp;
 import com.wulinpeng.daiylreader.read.ui.BookFactory;
@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.EventBus;
  * @datetime: 17/2/11 下午8:11
  * @description:
  */
-public class ReadActivity extends AppCompatActivity implements ReadViewInterface {
+public class ReadActivity extends AppCompatActivity implements IReadView {
 
     private ReadPresenterImp presenter;
 

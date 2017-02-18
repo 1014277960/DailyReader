@@ -1,14 +1,12 @@
 package com.wulinpeng.daiylreader.read.presenter;
 
-import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.api.ReaderApiManager;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
 import com.wulinpeng.daiylreader.manager.CacheManager;
-import com.wulinpeng.daiylreader.read.contract.ReadPresenterInterface;
-import com.wulinpeng.daiylreader.read.contract.ReadViewInterface;
+import com.wulinpeng.daiylreader.read.contract.IReadPresenter;
+import com.wulinpeng.daiylreader.read.contract.IReadView;
 import com.wulinpeng.daiylreader.util.RxUtil;
 
-import okhttp3.Cache;
 import rx.Observable;
 
 /**
@@ -16,15 +14,15 @@ import rx.Observable;
  * @datetime: 17/2/11 下午8:02
  * @description:
  */
-public class ReadPresenterImp implements ReadPresenterInterface {
+public class ReadPresenterImp implements IReadPresenter {
 
-    private ReadViewInterface rootView;
+    private IReadView rootView;
 
     private ReaderApiManager apiManager;
 
     private CacheManager cacheManager;
 
-    public ReadPresenterImp(ReadViewInterface rootView) {
+    public ReadPresenterImp(IReadView rootView) {
         this.rootView = rootView;
         apiManager = ReaderApiManager.getInstance();
         cacheManager = CacheManager.getInstance();

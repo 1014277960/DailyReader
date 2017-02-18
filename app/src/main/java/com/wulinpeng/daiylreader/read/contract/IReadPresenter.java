@@ -5,6 +5,6 @@ package com.wulinpeng.daiylreader.read.contract;
  * @datetime: 17/2/11 下午7:59
  * @description:
  */
-public interface ReadPresenterInterface {
+public interface IReadPresenter {
     public void getChaptersInfo(String bookId);
 }

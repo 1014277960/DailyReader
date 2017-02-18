@@ -8,7 +8,6 @@ package com.wulinpeng.daiylreader.base;
 public class Constant {
 
     public static final String API_BASE_URL = "http://api.zhuishushenqi.com/";
-
     // 追书最热榜（周／月／总）
     public static final String[] RANKING_HOT = {"54d42d92321052167dfb75e3", "564d820bc319238a644fb408", "564d8494fe996c25652644d2"};
     // 读者存留率（周／月／总）

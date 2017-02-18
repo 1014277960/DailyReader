@@ -1,44 +1,92 @@
 package com.wulinpeng.daiylreader;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
+import android.widget.ImageView;
 
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
-import com.wulinpeng.daiylreader.entity.ChaptersResponse;
-import com.wulinpeng.daiylreader.read.ui.ReadView;
-import com.wulinpeng.daiylreader.read.view.ReadActivity;
-import com.wulinpeng.daiylreader.search.ui.FlowLayout;
-import com.wulinpeng.daiylreader.util.RxUtil;
+import com.wulinpeng.daiylreader.base.BaseActivity;
+import com.wulinpeng.daiylreader.category.view.CategoryFragment;
+import com.wulinpeng.daiylreader.rank.view.RankFragment;
+import com.wulinpeng.daiylreader.self.view.SelfFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.OnClick;
 
-    private FlowLayout flowLayout;
+public class MainActivity extends BaseActivity {
 
-    private List<String> data = new ArrayList<>();
+    @BindView(R.id.img_user)
+    public ImageView userImg;
+
+    @BindView(R.id.img_search)
+    public ImageView searchImg;
+
+    @BindView(R.id.tab_layout)
+    public TabLayout tabLayout;
+
+    @BindView(R.id.view_pager)
+    public ViewPager viewPager;
+
+    private FragmentPagerAdapter pagerAdapter;
+
+    @BindView(R.id.drawer_layout)
+    public DrawerLayout drawerLayout;
+
+    @BindView(R.id.nav_view)
+    public NavigationView navigationView;
+
+    private List<Fragment> tabFragments = new ArrayList<>();
+
+    private String[] tabTitles = {"书架", "分类", "榜单"};
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-//        ReadActivity.startActivity(this, "51651e375a29ee6a5e0000af");
-        flowLayout = (FlowLayout) findViewById(R.id.flow_layout);
-        for (int i = 0; i != 10; i++) {
-            data.add("test   " + i);
-        }
-        flowLayout.setWords(data);
-        flowLayout.setListener(new FlowLayout.OnTextClickListener() {
-            @Override
-            public void onTextClick(String content) {
-                Log.d("Debug", content);
-            }
-        });
+    protected int getLayoutId() {
+        return R.layout.activity_main;
     }
+
+    @Override
+    protected void initViews() {
+        tabFragments.add(new SelfFragment());
+        tabFragments.add(new CategoryFragment());
+        tabFragments.add(new RankFragment());
+        pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return tabFragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return tabFragments.size();
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return tabTitles[position];
+            }
+        };
+        viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    protected void initData() {}
+
+    @OnClick(R.id.img_user)
+    public void showNavigationView(ImageView imageView) {
+        if (!drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            drawerLayout.openDrawer(Gravity.LEFT);
+        }
+    }
+
+    @OnClick(R.id.img_search)
+    public void search(ImageView imageView) {}
 
 }
