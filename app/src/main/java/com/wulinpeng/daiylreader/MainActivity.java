@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.wulinpeng.daiylreader.base.BaseActivity;
 import com.wulinpeng.daiylreader.category.view.CategoryFragment;
+import com.wulinpeng.daiylreader.categorydetail.ui.CategoryDetailActivity;
 import com.wulinpeng.daiylreader.rank.view.RankFragment;
 import com.wulinpeng.daiylreader.self.view.SelfFragment;
 
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
         tabFragments.add(new SelfFragment());
         tabFragments.add(new CategoryFragment());
         tabFragments.add(new RankFragment());

@@ -7,11 +7,11 @@ import android.util.Log;
 /**
  * @author wulinpeng
  * @datetime: 17/1/19 下午8:14
- * @description: 带有加载更多功能的Adapter
+ * @description: 带有加载更多功能的Adapter, 子Adapter需要根据isFooterShow来绘制
  */
 public abstract class FooterRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private boolean loading = false;
+    protected boolean loading = false;
 
     protected OnLoadMoreListener mLoadMoreListener;
 
@@ -25,6 +25,7 @@ public abstract class FooterRVAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public void setLoadingState(boolean loading) {
         this.loading = loading;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -51,6 +52,7 @@ public abstract class FooterRVAdapter extends RecyclerView.Adapter<RecyclerView.
                 if (mLoadMoreListener != null) {
                     mLoadMoreListener.onLoadMore();
                     loading = true;
+                    notifyDataSetChanged();
                 }
             }
         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
+import com.wulinpeng.daiylreader.categorydetail.ui.CategoryDetailActivity;
 import com.wulinpeng.daiylreader.entity.CatResponse;
 
 import java.util.List;
@@ -29,10 +30,16 @@ public class CatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private LayoutInflater inflater;
 
+    private String gender;
+
     public CatAdapter(Context context, List<CatResponse.Cat> data) {
         this.context = context;
         this.data = data;
         this.inflater = LayoutInflater.from(context);
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     @Override
@@ -66,7 +73,7 @@ public class CatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("Debug", "click");
+                    CategoryDetailActivity.startActivity(context, data.get(getLayoutPosition()).getName(), gender);
                 }
             });
         }

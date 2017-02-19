@@ -3,6 +3,7 @@ package com.wulinpeng.daiylreader.api;
 import com.wulinpeng.daiylreader.entity.BookDetail;
 import com.wulinpeng.daiylreader.entity.BookListResponse;
 import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
+import com.wulinpeng.daiylreader.entity.CatDetailResponse;
 import com.wulinpeng.daiylreader.entity.CatResponse;
 import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
@@ -121,6 +122,18 @@ public interface ReaderApi {
      */
     @GET("cats/lv2/statistics")
     Observable<CatResponse> getCategoryInfo();
+
+    /**
+     * 获取具体类型小说
+     * @param major
+     * @param type
+     * @param start
+     * @param limit
+     * @return
+     */
+    @GET("book/by-categories")
+    Observable<CatDetailResponse> getCatDetail(@Query("major") String major, @Query("gender") String gender, @Query("type") String type,
+                                                   @Query("start") int start, @Query("limit") int limit);
 
     /**
      * 获取榜单信息

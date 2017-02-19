@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".read.view.ReadActivity" />
+        <activity android:name=".categorydetail.ui.CategoryDetailActivity" />
     </application>
 
 </manifest>

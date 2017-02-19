@@ -1,9 +1,9 @@
 package com.wulinpeng.daiylreader.api;
 
-import com.wulinpeng.daiylreader.base.Constant;
 import com.wulinpeng.daiylreader.entity.BookDetail;
 import com.wulinpeng.daiylreader.entity.BookListResponse;
 import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
+import com.wulinpeng.daiylreader.entity.CatDetailResponse;
 import com.wulinpeng.daiylreader.entity.CatResponse;
 import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
@@ -49,7 +49,7 @@ public class ReaderApiManager {
 
     private ReaderApiManager() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.API_BASE_URL)
+                .baseUrl(ApiConstant.API_BASE_URL)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -102,6 +102,10 @@ public class ReaderApiManager {
 
     public Observable<CatResponse> getCategoryInfo() {
         return mReaderApi.getCategoryInfo();
+    }
+
+    public Observable<CatDetailResponse> getCatDetail(String major, String gender, String type, int start, int limit) {
+        return mReaderApi.getCatDetail(major, gender, type, start, limit);
     }
 
     public Observable<RankingResponse> getRanking(String type) {

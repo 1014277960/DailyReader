@@ -60,8 +60,11 @@ public class CategoryFragment extends BaseFragment implements ICategoryView {
         pressRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         maleAdapter = new CatAdapter(getContext(), maleDate);
+        maleAdapter.setGender("male");
         femaleAdapter = new CatAdapter(getContext(), femaleDate);
+        femaleAdapter.setGender("female");
         pressAdapter = new CatAdapter(getContext(), pressDate);
+        pressAdapter.setGender("press");
 
         maleRecyclerView.setAdapter(maleAdapter);
         femaleRecyclerView.setAdapter(femaleAdapter);

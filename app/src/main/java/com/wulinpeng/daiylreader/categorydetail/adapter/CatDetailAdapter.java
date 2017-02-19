@@ -1,0 +1,111 @@
+package com.wulinpeng.daiylreader.categorydetail.adapter;
+
+import android.content.Context;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.wulinpeng.daiylreader.R;
+import com.wulinpeng.daiylreader.api.ApiConstant;
+import com.wulinpeng.daiylreader.base.FooterRVAdapter;
+import com.wulinpeng.daiylreader.entity.BookShort;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * @author wulinpeng
+ * @datetime: 17/2/19 下午3:05
+ * @description:
+ */
+public class CatDetailAdapter extends FooterRVAdapter {
+
+    private Context context;
+
+    private List<BookShort> data;
+
+    private LayoutInflater inflater;
+
+    public static final int TYPE_NORMAL = 0;
+
+    public static final int TYPE_FOOTER = 1;
+
+    public CatDetailAdapter(Context context, List<BookShort> data) {
+        this.context = context;
+        this.data = data;
+        inflater = LayoutInflater.from(context);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = null;
+        if (viewType == TYPE_FOOTER) {
+            view = inflater.inflate(R.layout.footer_layout, parent, false);
+        } else {
+            view = inflater.inflate(R.layout.catdetail_item, parent, false);
+        }
+        return new CatDetailViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) == TYPE_FOOTER) {
+            return;
+        }
+        CatDetailViewHolder viewHolder = (CatDetailViewHolder) holder;
+        BookShort bookShort = data.get(position);
+        Glide.with(context).load(ApiConstant.IMG_BASE_URL + bookShort.getCover()).placeholder(R.drawable.book_cover_default)
+                .into(viewHolder.imageView);
+        Log.d("Debug", ApiConstant.IMG_BASE_URL + bookShort.getCover());
+        viewHolder.titleView.setText(bookShort.getTitle());
+        viewHolder.authorView.setText(bookShort.getAuthor());
+        viewHolder.shotIntroView.setText(bookShort.getShortIntro());
+        viewHolder.readMsgView.setText(bookShort.getLatelyFollower() + "人在追｜" + bookShort.getRetentionRatio() + "%读者存留率");
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (loading && position == getItemCount() - 1) {
+            return TYPE_FOOTER;
+        }
+        return TYPE_NORMAL;
+    }
+
+    @Override
+    public int getItemCount() {
+        return data.size() + (loading ? 1 : 0);
+    }
+
+    class CatDetailViewHolder extends RecyclerView.ViewHolder {
+
+        @Nullable
+        @BindView(R.id.img)
+        ImageView imageView;
+        @Nullable
+        @BindView(R.id.title)
+        TextView titleView;
+        @Nullable
+        @BindView(R.id.author)
+        TextView authorView;
+        @Nullable
+        @BindView(R.id.short_intro)
+        TextView shotIntroView;
+        @Nullable
+        @BindView(R.id.read_msg)
+        TextView readMsgView;
+
+        public CatDetailViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+}
