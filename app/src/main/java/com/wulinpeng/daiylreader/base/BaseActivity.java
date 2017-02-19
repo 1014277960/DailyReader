@@ -19,10 +19,6 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    @Nullable
-    @BindView(R.id.common_toolbar)
-    public Toolbar toolbar;
-
     protected abstract int getLayoutId();
 
     protected abstract void initViews();
@@ -34,23 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        if (toolbar != null) {
-            toolbar.setNavigationIcon(R.drawable.back_arrow);
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            toolbar.setTitleTextColor(Color.WHITE);
-        }
         initViews();
         initData();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-        }
-        return true;
     }
 
 }

@@ -3,22 +3,16 @@ package com.wulinpeng.daiylreader.categorydetail.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.base.BaseActivity;
-import com.wulinpeng.daiylreader.category.view.CategoryFragment;
 import com.wulinpeng.daiylreader.categorydetail.view.CatDetailFragment;
-import com.wulinpeng.daiylreader.rank.view.RankFragment;
-import com.wulinpeng.daiylreader.self.view.SelfFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +58,12 @@ public class CategoryDetailActivity extends BaseActivity {
     @Override
     protected void initViews() {
         String cat = getIntent().getStringExtra("cat");
+
+        toolbar.setNavigationIcon(R.drawable.back_arrow_white);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setTitleTextColor(Color.WHITE);
         getSupportActionBar().setTitle(cat);
 
         String gender = getIntent().getStringExtra("gender");
@@ -93,6 +93,14 @@ public class CategoryDetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 
 }

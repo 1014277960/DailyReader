@@ -13,6 +13,7 @@ import com.wulinpeng.daiylreader.base.BaseActivity;
 import com.wulinpeng.daiylreader.category.view.CategoryFragment;
 import com.wulinpeng.daiylreader.categorydetail.ui.CategoryDetailActivity;
 import com.wulinpeng.daiylreader.rank.view.RankFragment;
+import com.wulinpeng.daiylreader.search.view.SearchActivity;
 import com.wulinpeng.daiylreader.self.view.SelfFragment;
 
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        searchImg.setOnClickListener(v -> SearchActivity.startActivity(this));
 
         tabFragments.add(new SelfFragment());
         tabFragments.add(new CategoryFragment());
