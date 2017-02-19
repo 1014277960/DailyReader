@@ -11,7 +11,7 @@ public interface ISearchPresenter {
 
     public void getHotWords();
 
-    public void getHistory(List<String> history);
+    public void getHistory();
 
     public void addHistory(String content);
 

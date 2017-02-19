@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.wulinpeng.daiylreader.api.ReaderApi;
 import com.wulinpeng.daiylreader.api.ReaderApiManager;
+import com.wulinpeng.daiylreader.manager.HistoryManager;
 import com.wulinpeng.daiylreader.search.contract.ISearchPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchView;
 import com.wulinpeng.daiylreader.util.RxUtil;
@@ -21,6 +22,8 @@ public class SearchPresenterImpl implements ISearchPresenter {
     private Context context;
 
     private ISearchView rootView;
+
+    private List<String> history = new ArrayList<>();
 
     public SearchPresenterImpl(Context context, ISearchView rootView) {
         this.context = context;
@@ -58,17 +61,25 @@ public class SearchPresenterImpl implements ISearchPresenter {
     }
 
     @Override
-    public void getHistory(List<String> history) {
-
+    public void getHistory() {
+        history.clear();
+        history.addAll(HistoryManager.getHistory());
+        rootView.onHistoryFinish(history);
     }
 
     @Override
     public void addHistory(String content) {
-
+        if (!history.contains(content)) {
+            history.add(content);
+            HistoryManager.saveHistory(history);
+            rootView.onHistoryFinish(history);
+        }
     }
 
     @Override
     public void clearHistory() {
-
+        history.clear();
+        HistoryManager.saveHistory(history);
+        rootView.onHistoryFinish(history);
     }
 }

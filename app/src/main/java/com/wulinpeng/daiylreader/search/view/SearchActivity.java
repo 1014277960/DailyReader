@@ -3,18 +3,23 @@ package com.wulinpeng.daiylreader.search.view;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.base.BaseActivity;
+import com.wulinpeng.daiylreader.search.adapter.HistoryAdapter;
 import com.wulinpeng.daiylreader.search.contract.ISearchPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchView;
 import com.wulinpeng.daiylreader.search.presenter.SearchPresenterImpl;
 import com.wulinpeng.daiylreader.search.ui.FlowLayout;
 import com.wulinpeng.daiylreader.search.ui.SearchView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,6 +46,16 @@ public class SearchActivity extends BaseActivity implements ISearchView {
     @BindView(R.id.change)
     public TextView change;
 
+    @BindView(R.id.clear_history)
+    public TextView clearHistory;
+
+    @BindView(R.id.recycler_view)
+    public RecyclerView recyclerView;
+
+    private HistoryAdapter adapter;
+
+    private List<String> history = new ArrayList<>();
+
     private ISearchPresenter presenter;
 
     public static void startActivity(Context context) {
@@ -55,9 +70,6 @@ public class SearchActivity extends BaseActivity implements ISearchView {
 
     @Override
     protected void initViews() {
-        presenter = new SearchPresenterImpl(this, this);
-        presenter.getHotWords();
-
         back.setOnClickListener(v -> finish());
         searchView.setListener(text -> search(text));
         search.setOnClickListener(v -> search(searchView.getInputText()));
@@ -66,10 +78,19 @@ public class SearchActivity extends BaseActivity implements ISearchView {
         flowLayout.setListener(content -> {
             search(content);
         });
+
+        adapter = new HistoryAdapter(this, history);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        clearHistory.setOnClickListener(v -> presenter.clearHistory());
     }
 
     @Override
     protected void initData() {
+        presenter = new SearchPresenterImpl(this, this);
+        presenter.getHotWords();
+        presenter.getHistory();
     }
 
     private void search(String content) {
@@ -84,7 +105,9 @@ public class SearchActivity extends BaseActivity implements ISearchView {
 
     @Override
     public void onHistoryFinish(List<String> history) {
-
+        this.history.clear();
+        this.history.addAll(history);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

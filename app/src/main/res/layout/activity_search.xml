@@ -79,9 +79,50 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:background="@color/common_bg"
+        android:layout_marginTop="2dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搜索记录"
+                android:textColor="@color/common_h1"
+                android:textSize="16sp"
+                android:layout_margin="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/clear_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清空"
+                android:textColor="@color/common_h3"
+                android:textSize="12sp"
+                android:layout_margin="20dp"
+                android:drawableLeft="@drawable/trash"
+                android:gravity="center"
+                android:clickable="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
 </LinearLayout>
