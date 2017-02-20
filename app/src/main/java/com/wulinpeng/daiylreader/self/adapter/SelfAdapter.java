@@ -70,7 +70,7 @@ public class SelfAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Glide.with(context).load(ApiConstant.IMG_BASE_URL + bookDetail.getCover()).placeholder(R.drawable.book_cover_default)
                 .into(viewHolder.cover);
         viewHolder.title.setText(bookDetail.getTitle());
-        viewHolder.updateInfo.setText(TimeUtil.getTimeInterval(updateInfo.getUpdated()));
+        viewHolder.updateInfo.setText(TimeUtil.getTimeInterval(updateInfo.getUpdated()) + "更新:" + updateInfo.getLastChapter());
     }
 
     @Override
