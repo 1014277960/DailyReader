@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -214,7 +215,7 @@ public class BookFactory {
         List<String> lines = pages.get(mCurrentPage);
 
         if(null != lines || lines.size() > 0){
-            canvas.drawBitmap(mBackgroundBitmap, 0, 0, null);
+            canvas.drawBitmap(mBackgroundBitmap, null, new RectF(0, 0, mWidth, mHeight), null);
             int y = mNormalMargin;
             //绘制标题
             if(mCurrentPage == 0){

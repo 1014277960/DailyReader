@@ -11,6 +11,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
@@ -188,7 +189,7 @@ public class ReadView extends View {
                 // 下一章或者上一章的时候需要时间加载，那么直接启动动画翻页，然后当前页就是bg,然后等待
                 // todo 禁止操作直到加载出来
                 mIsAsyn = true;
-                mNextCanvas.drawBitmap(mBookFactory.getmBackgroundBitmap(), 0, 0, null);
+                mNextCanvas.drawBitmap(mBookFactory.getmBackgroundBitmap(), null, new RectF(0, 0, mWidth, mHeight), null);
                 startAnimation(700);
                 Toast.makeText(getContext(), "正在加载", Toast.LENGTH_SHORT).show();
             }
@@ -570,7 +571,7 @@ public class ReadView extends View {
         canvas.clipPath(mPath1);
         canvas.clipPath(mPath2, Region.Op.INTERSECT);
         // 由于对称过来的时候会有一部分不能填满，所以先画背景填满
-        canvas.drawBitmap(mBackgroundBitmap, 0, 0, null);
+        canvas.drawBitmap(mBackgroundBitmap, null, new RectF(0, 0, mWidth, mHeight), null);
         canvas.drawBitmap(bitmap, matrix, null);
         canvas.restore();
     }
