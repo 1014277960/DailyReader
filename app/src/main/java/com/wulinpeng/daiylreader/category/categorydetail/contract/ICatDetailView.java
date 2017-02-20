@@ -1,4 +1,4 @@
-package com.wulinpeng.daiylreader.categorydetail.contract;
+package com.wulinpeng.daiylreader.category.categorydetail.contract;
 
 import com.wulinpeng.daiylreader.entity.BookShort;
 

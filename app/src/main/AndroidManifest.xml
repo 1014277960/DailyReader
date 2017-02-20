@@ -19,10 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".read.view.ReadActivity" />
-        <activity android:name=".categorydetail.ui.CategoryDetailActivity" />
+        <activity android:name=".category.categorydetail.ui.CategoryDetailActivity" />
         <activity android:name=".search.view.SearchActivity" />
         <activity android:name=".search.view.SearchResultActivity" />
         <activity android:name=".rank.view.RankDetailActivity" />
+        <activity android:name=".bookdetail.view.BookDetailActivity" />
     </application>
 
 </manifest>

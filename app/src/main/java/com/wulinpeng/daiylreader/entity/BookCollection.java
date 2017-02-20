@@ -4,25 +4,25 @@ import java.util.List;
 
 /**
  * @author wulinpeng
- * @datetime: 17/1/22 下午1:59
+ * @datetime: 17/2/20 下午10:11
  * @description:
  */
 public class BookCollection {
 
-    private List<BookUpdateInfo> collection;
+    private List<BookDetail> books;
 
-    public List<BookUpdateInfo> getCollection() {
-        return collection;
+    public List<BookDetail> getBooks() {
+        return books;
     }
 
-    public void setCollection(List<BookUpdateInfo> collection) {
-        this.collection = collection;
+    public void setBooks(List<BookDetail> books) {
+        this.books = books;
     }
 
     @Override
     public String toString() {
         return "BookCollection{" +
-                "collection=" + collection +
+                "books=" + books +
                 '}';
     }
 }

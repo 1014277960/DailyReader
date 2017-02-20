@@ -140,8 +140,8 @@ public class BookFactory {
 
         EventBus.getDefault().post(new OnChapterLoadEvent());
 
-        // 保存数据到本地
-        CacheManager.getInstance().saveChapter(mChaptersInfo.getBook(), mCurrentChapterIndex, response.getChapter());
+        // TODO: 17/2/20 通过读取设置来判断是否应该缓存
+        // CacheManager.getInstance().saveChapter(mChaptersInfo.getBook(), mCurrentChapterIndex, response.getChapter());
     }
 
     /**
@@ -183,12 +183,10 @@ public class BookFactory {
                         lines.add(lineContent);
                         contentHeight += mNormalMargin;
                         contentHeight += mNormalSize;
-                        Log.d("Debug", lineContent + " mHeight:" + contentHeight);
                         lines.add(" ");
                         contentHeight += mNormalMargin;
                         contentHeight += mNormalSize;
                         lineContent = "\n";
-                        Log.d("Debug", lineContent + " mHeight:" + contentHeight);
                         break;
                     } else if (content.charAt(currentCursor) == ' ') {
                         lineContent += " ";
@@ -200,7 +198,6 @@ public class BookFactory {
                     lines.add(lineContent);
                     contentHeight += mNormalMargin;
                     contentHeight += mNormalSize;
-                    Log.d("Debug", lineContent + " mHeight:" + contentHeight);
                 }
             }
             pages.add(lines);

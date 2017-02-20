@@ -2,14 +2,13 @@ package com.wulinpeng.daiylreader.category.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.categorydetail.ui.CategoryDetailActivity;
+import com.wulinpeng.daiylreader.category.categorydetail.ui.CategoryDetailActivity;
 import com.wulinpeng.daiylreader.entity.CatResponse;
 
 import java.util.List;
@@ -44,7 +43,7 @@ public class CatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.cat_item, parent, false);
+        View view = inflater.inflate(R.layout.item_cat, parent, false);
         return new CatViewHolder(view);
     }
 

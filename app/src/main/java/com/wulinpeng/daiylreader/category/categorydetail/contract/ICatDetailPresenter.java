@@ -1,4 +1,4 @@
-package com.wulinpeng.daiylreader.categorydetail.contract;
+package com.wulinpeng.daiylreader.category.categorydetail.contract;
 
 /**
  * @author wulinpeng

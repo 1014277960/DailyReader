@@ -58,7 +58,7 @@ public class BookDetail {
     private int latelyFollower;
     private int latelyFollowerBase;
     private int followerCount;
-    private int wordCount;
+    private long wordCount;
     private int serializeWordCount;
     private int minRetentionRatio;
     private String retentionRatio;
@@ -206,11 +206,11 @@ public class BookDetail {
         this.followerCount = followerCount;
     }
 
-    public int getWordCount() {
+    public long getWordCount() {
         return wordCount;
     }
 
-    public void setWordCount(int wordCount) {
+    public void setWordCount(long wordCount) {
         this.wordCount = wordCount;
     }
 

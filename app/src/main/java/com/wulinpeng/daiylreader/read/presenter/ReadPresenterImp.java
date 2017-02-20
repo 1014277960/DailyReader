@@ -45,7 +45,7 @@ public class ReadPresenterImp implements IReadPresenter {
 
     private void onChaptersSuccess(ChaptersResponse.MixToc mixToc) {
         rootView.onChaptersInfoSuccess(mixToc);
-        // 缓存
+        // 缓存章节信息
         cacheManager.saveChapters(mixToc);
     }
 }

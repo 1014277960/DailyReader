@@ -1,4 +1,4 @@
-package com.wulinpeng.daiylreader.categorydetail.view;
+package com.wulinpeng.daiylreader.category.categorydetail.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +11,9 @@ import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.base.BaseFragment;
 import com.wulinpeng.daiylreader.base.FooterRVAdapter;
 import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
-import com.wulinpeng.daiylreader.categorydetail.contract.ICatDetailPresenter;
-import com.wulinpeng.daiylreader.categorydetail.contract.ICatDetailView;
-import com.wulinpeng.daiylreader.categorydetail.presenter.CatDetailPresenterImpl;
+import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailPresenter;
+import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailView;
+import com.wulinpeng.daiylreader.category.categorydetail.presenter.CatDetailPresenterImpl;
 import com.wulinpeng.daiylreader.entity.BookShort;
 
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
 package com.wulinpeng.daiylreader.rank.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.rank_item, parent, false);
+        View view = inflater.inflate(R.layout.item_rank, parent, false);
         return new RankingViewHolder(view);
     }
 

@@ -3,7 +3,6 @@ package com.wulinpeng.daiylreader.adapter;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.api.ApiConstant;
 import com.wulinpeng.daiylreader.base.FooterRVAdapter;
+import com.wulinpeng.daiylreader.bookdetail.view.BookDetailActivity;
 import com.wulinpeng.daiylreader.entity.BookShort;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class BookShortAdapter extends FooterRVAdapter {
         if (viewType == TYPE_FOOTER) {
             view = inflater.inflate(R.layout.footer_layout, parent, false);
         } else {
-            view = inflater.inflate(R.layout.catdetail_item, parent, false);
+            view = inflater.inflate(R.layout.item_book_short, parent, false);
         }
         return new CatDetailViewHolder(view);
     }
@@ -104,6 +104,9 @@ public class BookShortAdapter extends FooterRVAdapter {
         public CatDetailViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(v -> {
+                BookDetailActivity.startActivity(context, data.get(getLayoutPosition()).get_id());
+            });
         }
     }
 

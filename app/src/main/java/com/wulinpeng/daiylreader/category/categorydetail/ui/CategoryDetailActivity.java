@@ -1,4 +1,4 @@
-package com.wulinpeng.daiylreader.categorydetail.ui;
+package com.wulinpeng.daiylreader.category.categorydetail.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.view.MenuItem;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.base.BaseActivity;
-import com.wulinpeng.daiylreader.categorydetail.view.CatDetailFragment;
+import com.wulinpeng.daiylreader.category.categorydetail.view.CatDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -64,7 +64,10 @@ public class SearchPresenterImpl implements ISearchPresenter {
     @Override
     public void getHistory() {
         history.clear();
-        history.addAll(HistoryManager.getHistory());
+        List<String> h = HistoryManager.getHistory();
+        if (h != null) {
+            history.addAll(HistoryManager.getHistory());
+        }
         rootView.onHistoryFinish(history);
     }
 
