@@ -8,6 +8,7 @@ import com.wulinpeng.daiylreader.entity.CatResponse;
 import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
 import com.wulinpeng.daiylreader.entity.HotWordsResponse;
+import com.wulinpeng.daiylreader.entity.RankingInfoResponse;
 import com.wulinpeng.daiylreader.entity.RankingResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookListResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookResponse;
@@ -110,5 +111,9 @@ public class ReaderApiManager {
 
     public Observable<RankingResponse> getRanking(String type) {
         return mReaderApi.getRanking(type);
+    }
+
+    public Observable<RankingInfoResponse> getRankingInfo() {
+        return mReaderApi.getRankingInfo();
     }
 }

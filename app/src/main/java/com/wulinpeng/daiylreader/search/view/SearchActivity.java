@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
@@ -15,9 +16,13 @@ import com.wulinpeng.daiylreader.base.BaseActivity;
 import com.wulinpeng.daiylreader.search.adapter.HistoryAdapter;
 import com.wulinpeng.daiylreader.search.contract.ISearchPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchView;
+import com.wulinpeng.daiylreader.search.event.SearchEvent;
 import com.wulinpeng.daiylreader.search.presenter.SearchPresenterImpl;
 import com.wulinpeng.daiylreader.search.ui.FlowLayout;
 import com.wulinpeng.daiylreader.search.ui.SearchView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +51,9 @@ public class SearchActivity extends BaseActivity implements ISearchView {
     @BindView(R.id.change)
     public TextView change;
 
+    @BindView(R.id.history_layout)
+    public LinearLayout historyLayout;
+
     @BindView(R.id.clear_history)
     public TextView clearHistory;
 
@@ -70,9 +78,14 @@ public class SearchActivity extends BaseActivity implements ISearchView {
 
     @Override
     protected void initViews() {
+        EventBus.getDefault().register(this);
+
         back.setOnClickListener(v -> finish());
         searchView.setListener(text -> search(text));
-        search.setOnClickListener(v -> search(searchView.getInputText()));
+        search.setOnClickListener(v -> {
+            search(searchView.getInputText());
+            searchView.hideSoftInput(this);
+        });
 
         change.setOnClickListener(v -> flowLayout.nextPage());
         flowLayout.setListener(content -> {
@@ -94,8 +107,16 @@ public class SearchActivity extends BaseActivity implements ISearchView {
     }
 
     private void search(String content) {
+        if (content.equals("")) {
+            return;
+        }
         presenter.addHistory(content);
-        // search
+        SearchResultActivity.startActivity(this, content);
+    }
+
+    @Subscribe
+    public void onSearch(SearchEvent searchEvent) {
+        search(searchEvent.getContent());
     }
 
     @Override
@@ -105,6 +126,11 @@ public class SearchActivity extends BaseActivity implements ISearchView {
 
     @Override
     public void onHistoryFinish(List<String> history) {
+        if (history == null || history.size() == 0) {
+            historyLayout.setVisibility(View.INVISIBLE);
+        } else {
+            historyLayout.setVisibility(View.VISIBLE);
+        }
         this.history.clear();
         this.history.addAll(history);
         adapter.notifyDataSetChanged();
@@ -113,5 +139,11 @@ public class SearchActivity extends BaseActivity implements ISearchView {
     @Override
     public void onError(String msg) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

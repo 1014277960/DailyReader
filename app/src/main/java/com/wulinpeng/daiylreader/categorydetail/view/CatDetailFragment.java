@@ -5,13 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.base.BaseFragment;
 import com.wulinpeng.daiylreader.base.FooterRVAdapter;
-import com.wulinpeng.daiylreader.categorydetail.adapter.CatDetailAdapter;
+import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import com.wulinpeng.daiylreader.categorydetail.contract.ICatDetailPresenter;
 import com.wulinpeng.daiylreader.categorydetail.contract.ICatDetailView;
 import com.wulinpeng.daiylreader.categorydetail.presenter.CatDetailPresenterImpl;
@@ -35,7 +34,7 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
     @BindView(R.id.recycler_view)
     public RecyclerView recyclerView;
 
-    private CatDetailAdapter adapter;
+    private BookShortAdapter adapter;
 
     private List<BookShort> data;
 
@@ -73,7 +72,7 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
     @Override
     protected void initViews() {
         data = new ArrayList<>();
-        adapter = new CatDetailAdapter(getContext(), data);
+        adapter = new BookShortAdapter(getContext(), data);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

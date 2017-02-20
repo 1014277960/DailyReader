@@ -8,6 +8,7 @@ import com.wulinpeng.daiylreader.entity.CatResponse;
 import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
 import com.wulinpeng.daiylreader.entity.HotWordsResponse;
+import com.wulinpeng.daiylreader.entity.RankingInfoResponse;
 import com.wulinpeng.daiylreader.entity.RankingResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookListResponse;
 import com.wulinpeng.daiylreader.entity.RecommendBookResponse;
@@ -137,6 +138,13 @@ public interface ReaderApi {
 
     /**
      * 获取榜单信息
+     * @return
+     */
+    @GET("ranking/gender")
+    Observable<RankingInfoResponse> getRankingInfo();
+
+    /**
+     * 获取具体榜单
      * @param type
      * @return
      */

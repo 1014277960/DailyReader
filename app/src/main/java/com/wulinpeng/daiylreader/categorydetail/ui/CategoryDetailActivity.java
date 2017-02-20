@@ -88,6 +88,7 @@ public class CategoryDetailActivity extends BaseActivity {
             }
         };
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(viewPager);
     }
 

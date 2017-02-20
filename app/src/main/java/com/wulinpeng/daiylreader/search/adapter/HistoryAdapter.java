@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
+import com.wulinpeng.daiylreader.search.event.SearchEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -58,6 +61,11 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public HistoryViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(v -> {
+                SearchEvent searchEvent = new SearchEvent();
+                searchEvent.setContent(data.get(getLayoutPosition()));
+                EventBus.getDefault().post(searchEvent);
+            });
         }
     }
 }

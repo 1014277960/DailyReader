@@ -9,6 +9,8 @@ import android.view.MenuItem;
 
 import com.wulinpeng.daiylreader.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -33,5 +35,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         initViews();
         initData();
     }
-
 }

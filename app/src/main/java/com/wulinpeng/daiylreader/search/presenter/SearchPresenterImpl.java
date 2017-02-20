@@ -1,6 +1,7 @@
 package com.wulinpeng.daiylreader.search.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.wulinpeng.daiylreader.api.ReaderApi;
 import com.wulinpeng.daiylreader.api.ReaderApiManager;

@@ -1,4 +1,4 @@
-package com.wulinpeng.daiylreader.categorydetail.adapter;
+package com.wulinpeng.daiylreader.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  * @datetime: 17/2/19 下午3:05
  * @description:
  */
-public class CatDetailAdapter extends FooterRVAdapter {
+public class BookShortAdapter extends FooterRVAdapter {
 
     private Context context;
 
@@ -38,7 +38,7 @@ public class CatDetailAdapter extends FooterRVAdapter {
 
     public static final int TYPE_FOOTER = 1;
 
-    public CatDetailAdapter(Context context, List<BookShort> data) {
+    public BookShortAdapter(Context context, List<BookShort> data) {
         this.context = context;
         this.data = data;
         inflater = LayoutInflater.from(context);
@@ -64,7 +64,6 @@ public class CatDetailAdapter extends FooterRVAdapter {
         BookShort bookShort = data.get(position);
         Glide.with(context).load(ApiConstant.IMG_BASE_URL + bookShort.getCover()).placeholder(R.drawable.book_cover_default)
                 .into(viewHolder.imageView);
-        Log.d("Debug", ApiConstant.IMG_BASE_URL + bookShort.getCover());
         viewHolder.titleView.setText(bookShort.getTitle());
         viewHolder.authorView.setText(bookShort.getAuthor());
         viewHolder.shotIntroView.setText(bookShort.getShortIntro());
