@@ -13,3 +13,9 @@
  ![image](https://github.com/1014277960/DailyReader/raw/master/image/9.png)
 
 # TODO
+- [ ] 夜间模式
+- [ ] 调节文字大小和页面背景
+- [ ] 添加更多翻页模式
+- [ ] 添加设置
+- [ ] 缓存小说
+- [ ] 登陆功能，随时随地同步书架
