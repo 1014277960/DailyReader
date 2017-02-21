@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.wulinpeng.daiylreader"
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -50,4 +50,5 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile files('libs/jackson-core-asl-1.9.7.jar')
     compile files('libs/jackson-mapper-asl-1.9.7.jar')
+    compile 'com.tencent.bugly:crashreport:latest.release'
 }

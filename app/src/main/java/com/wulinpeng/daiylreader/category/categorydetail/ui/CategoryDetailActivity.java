@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.base.BaseActivity;
 import com.wulinpeng.daiylreader.category.categorydetail.view.CatDetailFragment;
@@ -44,6 +45,7 @@ public class CategoryDetailActivity extends BaseActivity {
     private String cat;
 
     public static void startActivity(Context context, String cat, String gender) {
+
         Intent intent = new Intent(context, CategoryDetailActivity.class);
         intent.putExtra("cat", cat);
         intent.putExtra("gender", gender);
@@ -57,6 +59,7 @@ public class CategoryDetailActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
         String cat = getIntent().getStringExtra("cat");
 
         toolbar.setNavigationIcon(R.drawable.back_arrow_white);

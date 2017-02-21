@@ -2,6 +2,7 @@ package com.wulinpeng.daiylreader;
 
 import android.content.Context;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.wulinpeng.daiylreader.api.ReaderApiManager;
 
 import io.realm.Realm;
@@ -18,6 +19,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        CrashReport.initCrashReport(getApplicationContext(), "869beebc76", false);
     }
 
     public static Context getContext() {
