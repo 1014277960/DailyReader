@@ -107,7 +107,7 @@ public class CacheManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mCacheHelper.saveObject(chapterFile, chapter);
+        mCacheHelper.saveString(chapterFile, chapter.getBody());
     }
 
     public ChapterDetailResponse.Chapter getChapter(String bookId, int index) {
@@ -116,6 +116,14 @@ public class CacheManager {
             return null;
         }
         return mCacheHelper.getObject(chapterFile, ChapterDetailResponse.Chapter.class);
+    }
+
+    public File getChapterFile(String bookId, int index) {
+        File chapterFile = new File(getBookDir(bookId), "chapter" + index);
+        if (!chapterFile.exists()) {
+            return null;
+        }
+        return chapterFile;
     }
 
 }

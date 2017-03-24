@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.wulinpeng.daiylreader.R;
@@ -13,6 +14,7 @@ import com.wulinpeng.daiylreader.read.contract.IReadView;
 import com.wulinpeng.daiylreader.read.event.RecycleBitmapEvent;
 import com.wulinpeng.daiylreader.read.presenter.ReadPresenterImp;
 import com.wulinpeng.daiylreader.read.ui.BookFactory;
+import com.wulinpeng.daiylreader.read.ui.NewBookFactory;
 import com.wulinpeng.daiylreader.read.ui.ReadView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,7 +30,7 @@ public class ReadActivity extends AppCompatActivity implements IReadView {
 
     private ReadView readView;
 
-    private BookFactory bookFactory;
+    private NewBookFactory bookFactory;
 
     private String bookId;
 
@@ -58,7 +60,7 @@ public class ReadActivity extends AppCompatActivity implements IReadView {
 
     @Override
     public void onChaptersInfoSuccess(ChaptersResponse.MixToc mixToc) {
-        bookFactory = new BookFactory(mixToc);
+        bookFactory = new NewBookFactory(mixToc);
         readView.setBookFactory(bookFactory);
     }
 

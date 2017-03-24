@@ -67,10 +67,7 @@ public class ReadView extends View {
     float mMiddleY;
     float mDegress;
     float mTouchCornerDis;
-    ColorMatrixColorFilter colorMatrixColorFilter;
-    Matrix matrix;
 
-    float[] matrixArr = { 0, 0, 0, 0, 0, 0, 0, 0, 1.0f };
     boolean mIsRtOrLb;
     float mMaxLength;
     int[] mBackShadowColors;
@@ -85,11 +82,9 @@ public class ReadView extends View {
     GradientDrawable mFrontDrawable_v_lr;
     GradientDrawable mFrontDrawable_v_rl;
 
-    Paint mPaint;
-
     Scroller mScroller;
 
-    BookFactory mBookFactory;
+    NewBookFactory mBookFactory;
 
     /**
      * 在等待异步数据
@@ -117,27 +112,18 @@ public class ReadView extends View {
 
         mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg_read);
 
-        mPaint = new Paint();
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(Color.WHITE);
-        ColorMatrix cm = new ColorMatrix();
-        float array[] = { 0.55f, 0, 0, 0, 80.0f, 0, 0.55f, 0, 0, 80.0f, 0, 0,
-                0.55f, 0, 80.0f, 0, 0, 0, 0.2f, 0 };
-        cm.set(array);
-        colorMatrixColorFilter = new ColorMatrixColorFilter(cm);
-        matrix = new Matrix();
         mScroller = new Scroller(getContext());
         mTouch.x = 0.1f;
         mTouch.y = 0.1f;
 
     }
 
-    public void setBookFactory(BookFactory bookFactory) {
+    public void setBookFactory(NewBookFactory bookFactory) {
         mBookFactory = bookFactory;
-        int state = mBookFactory.openBook(0, 0);
+        int state = mBookFactory.openBook(0);
         if (state == BookFactory.STATE_SUCCESS) {
             mBookFactory.draw(mCurrentCanvas);
-            invalidate();
+            postInvalidate();
         } else if (state == BookFactory.STATE_ASYN) {
             mIsAsyn = true;
         }
@@ -189,7 +175,7 @@ public class ReadView extends View {
                 // 下一章或者上一章的时候需要时间加载，那么直接启动动画翻页，然后当前页就是bg,然后等待
                 // todo 禁止操作直到加载出来
                 mIsAsyn = true;
-                mNextCanvas.drawBitmap(mBookFactory.getmBackgroundBitmap(), null, new RectF(0, 0, mWidth, mHeight), null);
+                mNextCanvas.drawBitmap(mBookFactory.getBackgroundBitmap(), null, new RectF(0, 0, mWidth, mHeight), null);
                 startAnimation(700);
                 Toast.makeText(getContext(), "正在加载", Toast.LENGTH_SHORT).show();
             }
@@ -243,7 +229,7 @@ public class ReadView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(0xFFAAAAAA);
+        canvas.drawBitmap(mBackgroundBitmap, null, new RectF(0, 0, mWidth, mHeight), null);
         calcPoints();
         drawCurrentPageArea(canvas, mCurrentBitmap);
         drawNextPageAreaAndShadow(canvas, mNextBitmap);
@@ -566,12 +552,9 @@ public class ReadView extends View {
 
         Matrix matrix = getSymmetricalMatrix();
 
-
         canvas.save();
         canvas.clipPath(mPath1);
         canvas.clipPath(mPath2, Region.Op.INTERSECT);
-        // 由于对称过来的时候会有一部分不能填满，所以先画背景填满
-        canvas.drawBitmap(mBackgroundBitmap, null, new RectF(0, 0, mWidth, mHeight), null);
         canvas.drawBitmap(bitmap, matrix, null);
         canvas.restore();
     }

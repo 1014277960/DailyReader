@@ -28,7 +28,7 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener {
 
     private int normalMargin = 20;
 
-    private int width, height = 500;
+    private int width;
 
     /**
      * 存放热词，按页分
@@ -125,40 +125,33 @@ public class FlowLayout extends ViewGroup implements View.OnClickListener {
         width = calculateWidth();
 
         int currentLineWidth = 0;
-        int currentLineHeight = 0;
 
         List<View> line = new ArrayList<>();
         View child = null;
-        boolean canAdd = false;
         for (int i = 0; i != getChildCount(); i++) {
             child = getChildAt(i);
             int childWidth = child.getMeasuredWidth() + 2 * normalMargin;
             int childHeight = child.getMeasuredHeight() + 2 * normalMargin;
-            canAdd = false;
-            if (currentLineWidth + childWidth <= width && currentLineHeight + childHeight <= height) {
+
+            if (currentLineWidth + childWidth <= width) {
                 // 本行可以再加
                 line.add(child);
                 currentLineWidth += childWidth;
-                canAdd = true;
-            } else if (currentLineHeight + childHeight <= height) {
+            } else {
                 // 本行不能加，但是下一行可以，所以换行
                 formatChildren.add(line);
                 line = new ArrayList<>();
                 line.add(child);
-                currentLineHeight += child.getHeight();
                 currentLineWidth = childWidth;
-            } else {
-                // 全部空间满了，结束
-                formatChildren.add(line);
-                break;
             }
         }
 
-        if (canAdd) {
-            formatChildren.add(line);
-        }
+        formatChildren.add(line);
 
-        setMeasuredDimension(width, height);
+        View view = getChildAt(0);
+        if (view != null) {
+            setMeasuredDimension(width, (view.getMeasuredHeight() + 2 * normalMargin) * formatChildren.size());
+        }
 
     }
 
