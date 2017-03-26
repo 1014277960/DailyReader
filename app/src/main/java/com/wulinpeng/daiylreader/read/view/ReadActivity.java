@@ -69,4 +69,10 @@ public class ReadActivity extends AppCompatActivity implements IReadView {
         super.onDestroy();
         EventBus.getDefault().post(new RecycleBitmapEvent());
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

@@ -16,6 +16,7 @@ import com.wulinpeng.daiylreader.entity.BookShort;
 import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
 import com.wulinpeng.daiylreader.search.view.SearchActivity;
+import com.wulinpeng.daiylreader.util.ImageHelper;
 import com.wulinpeng.daiylreader.util.TimeUtil;
 
 import java.util.List;
@@ -67,8 +68,7 @@ public class SelfAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         UpdateInfoViewHolder viewHolder = (UpdateInfoViewHolder) holder;
         BookDetail bookDetail = books.get(position);
         BookUpdateInfo updateInfo = updateInfos.get(position);
-        Glide.with(context).load(ApiConstant.IMG_BASE_URL + bookDetail.getCover()).placeholder(R.drawable.book_cover_default)
-                .into(viewHolder.cover);
+        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + bookDetail.getCover(), R.drawable.book_cover_default, viewHolder.cover);
         viewHolder.title.setText(bookDetail.getTitle());
         viewHolder.updateInfo.setText(TimeUtil.getTimeInterval(updateInfo.getUpdated()) + "更新:" + updateInfo.getLastChapter());
     }

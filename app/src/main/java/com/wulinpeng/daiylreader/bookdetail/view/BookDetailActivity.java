@@ -21,6 +21,7 @@ import com.wulinpeng.daiylreader.bookdetail.presenter.BookDetailPresenterImpl;
 import com.wulinpeng.daiylreader.bookdetail.ui.IntroTextView;
 import com.wulinpeng.daiylreader.entity.BookDetail;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
+import com.wulinpeng.daiylreader.util.ImageHelper;
 import com.wulinpeng.daiylreader.util.TimeUtil;
 
 import java.text.ParseException;
@@ -112,7 +113,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
 
     @Override
     public void onBookDetailFinish(BookDetail bookDetail) {
-        Glide.with(this).load(ApiConstant.IMG_BASE_URL + bookDetail.getCover()).into(cover);
+        ImageHelper.load(this, ApiConstant.IMG_BASE_URL + bookDetail.getCover(), R.drawable.book_cover_default, cover);
         title.setText(bookDetail.getTitle());
         author.setText(bookDetail.getAuthor());
         setReadMsg(bookDetail);

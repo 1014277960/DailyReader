@@ -18,12 +18,15 @@ import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
 import com.wulinpeng.daiylreader.entity.ChaptersResponse;
 import com.wulinpeng.daiylreader.manager.CacheManager;
 import com.wulinpeng.daiylreader.read.event.OnChapterLoadEvent;
+import com.wulinpeng.daiylreader.read.event.RecycleBitmapEvent;
 import com.wulinpeng.daiylreader.util.FileUtil;
 import com.wulinpeng.daiylreader.util.RxUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
@@ -34,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+
 
 import static com.wulinpeng.daiylreader.Application.getContext;
 
@@ -84,6 +88,8 @@ public class NewBookFactory {
 
     public NewBookFactory(ChaptersResponse.MixToc chaptersInfo){
         cacheManager = CacheManager.getInstance();
+
+        EventBus.getDefault().register(this);
 
         this.mChaptersInfo = chaptersInfo;
         getWidthAndHeight();
@@ -371,6 +377,12 @@ public class NewBookFactory {
 
     public Bitmap getBackgroundBitmap() {
         return backgroundBitmap;
+    }
+
+    @Subscribe
+    public void recycleBitmap(RecycleBitmapEvent event) {
+        backgroundBitmap.recycle();
+        backgroundBitmap = null;
     }
 
 }

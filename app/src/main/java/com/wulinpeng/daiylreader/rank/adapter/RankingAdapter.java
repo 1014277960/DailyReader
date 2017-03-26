@@ -13,6 +13,7 @@ import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.api.ApiConstant;
 import com.wulinpeng.daiylreader.entity.RankingInfoResponse;
 import com.wulinpeng.daiylreader.rank.view.RankDetailActivity;
+import com.wulinpeng.daiylreader.util.ImageHelper;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RankingViewHolder viewHolder = (RankingViewHolder) holder;
         RankingInfoResponse.Rank rank = data.get(position);
-        Glide.with(context).load(ApiConstant.IMG_BASE_URL + rank.getCover()).into(viewHolder.iocn);
+        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + rank.getCover(), viewHolder.iocn);
         viewHolder.textView.setText(rank.getTitle());
     }
 
