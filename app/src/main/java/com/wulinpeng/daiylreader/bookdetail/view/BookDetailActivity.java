@@ -20,8 +20,8 @@ import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailView;
 import com.wulinpeng.daiylreader.bookdetail.presenter.BookDetailPresenterImpl;
 import com.wulinpeng.daiylreader.bookdetail.ui.IntroTextView;
 import com.wulinpeng.daiylreader.entity.BookDetail;
+import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
-import com.wulinpeng.daiylreader.util.ImageHelper;
 import com.wulinpeng.daiylreader.util.TimeUtil;
 
 import java.text.ParseException;
@@ -113,7 +113,11 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
 
     @Override
     public void onBookDetailFinish(BookDetail bookDetail) {
-        ImageHelper.load(this, ApiConstant.IMG_BASE_URL + bookDetail.getCover(), R.drawable.book_cover_default, cover);
+//        ImageHelper.load(this, ApiConstant.IMG_BASE_URL + bookDetail.getCover(), R.drawable.book_cover_default, cover);
+        ImageLoader imageLoader = new ImageLoader.Builder().url(ApiConstant.IMG_BASE_URL + bookDetail.getCover())
+                .placeHolder(R.drawable.book_cover_default)
+                .target(cover).build();
+        com.wulinpeng.daiylreader.manager.imageloader.ImageHelper.getInstance().load(this, imageLoader);
         title.setText(bookDetail.getTitle());
         author.setText(bookDetail.getAuthor());
         setReadMsg(bookDetail);

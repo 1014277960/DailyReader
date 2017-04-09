@@ -15,7 +15,7 @@ import com.wulinpeng.daiylreader.api.ApiConstant;
 import com.wulinpeng.daiylreader.base.FooterRVAdapter;
 import com.wulinpeng.daiylreader.bookdetail.view.BookDetailActivity;
 import com.wulinpeng.daiylreader.entity.BookShort;
-import com.wulinpeng.daiylreader.util.ImageHelper;
+import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
 
 import java.util.List;
 
@@ -63,7 +63,11 @@ public class BookShortAdapter extends FooterRVAdapter {
         }
         CatDetailViewHolder viewHolder = (CatDetailViewHolder) holder;
         BookShort bookShort = data.get(position);
-        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + bookShort.getCover(), R.drawable.book_cover_default, viewHolder.imageView);
+//        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + bookShort.getCover(), R.drawable.book_cover_default, viewHolder.imageView);
+        ImageLoader imageLoader = new ImageLoader.Builder().url(ApiConstant.IMG_BASE_URL + bookShort.getCover())
+                .placeHolder(R.drawable.book_cover_default)
+                .target(viewHolder.imageView).build();
+        com.wulinpeng.daiylreader.manager.imageloader.ImageHelper.getInstance().load(context, imageLoader);
         viewHolder.titleView.setText(bookShort.getTitle());
         viewHolder.authorView.setText(bookShort.getAuthor());
         viewHolder.shotIntroView.setText(bookShort.getShortIntro());
