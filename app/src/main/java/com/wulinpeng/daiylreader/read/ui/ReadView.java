@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * @author wulinpeng
  * @datetime: 17/2/8 下午6:37
- * @description:
+ * @description: todo 重构
  */
 public class ReadView extends View {
 

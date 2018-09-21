@@ -41,7 +41,7 @@ import static com.wulinpeng.daiylreader.Application.getContext;
 /**
  * @author wulinpeng
  * @datetime: 17/3/24 下午9:35
- * @description:
+ * @description: todo 重构
  */
 public class NewBookFactory {
     /**

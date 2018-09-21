@@ -15,24 +15,24 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
+import wulinpeng.com.framework.base.mvp.BasePresenter;
+
 /**
  * @author wulinpeng
  * @datetime: 17/2/20 下午7:59
  * @description:
  */
-public class BookDetailPresenterImpl implements IBookDetailPresenter {
+public class BookDetailPresenterImpl extends BasePresenter<IBookDetailView> implements IBookDetailPresenter {
 
     private Context context;
-
-    private IBookDetailView rootView;
 
     private String bookId;
 
     private BookDetail bookDetail;
 
     public BookDetailPresenterImpl(Context context, IBookDetailView rootView, String bookId) {
+        super(rootView);
         this.context = context;
-        this.rootView = rootView;
         this.bookId = bookId;
     }
 
@@ -41,9 +41,9 @@ public class BookDetailPresenterImpl implements IBookDetailPresenter {
         ReaderApiManager.getInstance().getBookDetail(bookId)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(bookDetail -> {
-                    rootView.onBookDetailFinish(bookDetail);
+                    mRootView.onBookDetailFinish(bookDetail);
                     BookDetailPresenterImpl.this.bookDetail = bookDetail;
-                }, throwable -> rootView.onError(throwable.getMessage()));
+                }, throwable -> mRootView.onError(throwable.getMessage()));
     }
 
     /**

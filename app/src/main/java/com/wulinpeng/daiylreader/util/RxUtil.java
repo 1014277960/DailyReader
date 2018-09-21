@@ -8,7 +8,7 @@ import rx.schedulers.Schedulers;
 /**
  * @author wulinpeng
  * @datetime: 17/1/19 下午6:55
- * @description:
+ * @description: 集成主线程切换的逻辑
  */
 public class RxUtil {
 

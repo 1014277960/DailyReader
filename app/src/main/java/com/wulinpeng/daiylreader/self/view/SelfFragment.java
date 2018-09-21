@@ -51,6 +51,7 @@ public class SelfFragment extends BaseFragment implements ISelfView {
 
     @Override
     protected void initViews() {
+        // TODO: 18/9/22 livedatabus
         EventBus.getDefault().register(this);
         adapter = new SelfAdapter(getContext(), books, updateInfos);
         recyclerView.setAdapter(adapter);
