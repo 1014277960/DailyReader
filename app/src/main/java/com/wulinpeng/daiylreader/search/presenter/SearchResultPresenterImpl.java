@@ -1,21 +1,20 @@
 package com.wulinpeng.daiylreader.search.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
 import com.wulinpeng.daiylreader.search.contract.ISearchResultPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchResultView;
 import com.wulinpeng.daiylreader.util.RxUtil;
+
+import wulinpeng.com.framework.base.mvp.BasePresenter;
 
 /**
  * @author wulinpeng
  * @datetime: 17/2/20 下午2:20
  * @description:
  */
-public class SearchResultPresenterImpl implements ISearchResultPresenter {
-
-    private ISearchResultView rootView;
+public class SearchResultPresenterImpl extends BasePresenter<ISearchResultView> implements ISearchResultPresenter {
 
     private Context context;
 
@@ -28,42 +27,42 @@ public class SearchResultPresenterImpl implements ISearchResultPresenter {
     private boolean isEnd;
 
     public SearchResultPresenterImpl(Context context, ISearchResultView rootView, String content) {
-        this.rootView = rootView;
+        super(rootView);
         this.context = context;
         this.content = content;
     }
 
     @Override
     public void firstLoad() {
-        rootView.showLoading(true);
+        mRootView.showLoading(true);
         currentCount = 0;
         ReaderApiManager.getInstance().searchBooks(content, currentCount, pageCount)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(searchResponse -> {
-                    rootView.onFirstLoadFinish(searchResponse.getBooks());
+                    mRootView.onFirstLoadFinish(searchResponse.getBooks());
                     checkCount(searchResponse.getBooks().size());
-                    rootView.showLoading(false);
+                    mRootView.showLoading(false);
                 }, throwable -> {
-                    rootView.onFirstLoadError(throwable.getMessage());
-                    rootView.showLoading(false);
+                    mRootView.onFirstLoadError(throwable.getMessage());
+                    mRootView.showLoading(false);
                 });
     }
 
     @Override
     public void loadMore() {
         if (isEnd) {
-            rootView.onLoadMoreEnd();
+            mRootView.onLoadMoreEnd();
             return;
         }
         ReaderApiManager.getInstance().searchBooks(content, currentCount, pageCount)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(searchResponse -> {
-                    rootView.onLoadMoreFinish(searchResponse.getBooks());
+                    mRootView.onLoadMoreFinish(searchResponse.getBooks());
                     checkCount(searchResponse.getBooks().size());
-                    rootView.showLoading(false);
+                    mRootView.showLoading(false);
                 }, throwable -> {
-                    rootView.onLoadMoreError(throwable.getMessage());
-                    rootView.showLoading(false);
+                    mRootView.onLoadMoreError(throwable.getMessage());
+                    mRootView.showLoading(false);
                 });
     }
 

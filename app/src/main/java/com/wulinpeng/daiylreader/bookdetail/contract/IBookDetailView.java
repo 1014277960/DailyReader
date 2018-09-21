@@ -1,6 +1,6 @@
 package com.wulinpeng.daiylreader.bookdetail.contract;
 
-import com.wulinpeng.daiylreader.entity.BookDetail;
+import com.wulinpeng.daiylreader.bean.BookDetail;
 
 /**
  * @author wulinpeng

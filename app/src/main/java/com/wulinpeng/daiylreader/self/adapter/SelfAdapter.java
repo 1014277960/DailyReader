@@ -8,12 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.api.ApiConstant;
-import com.wulinpeng.daiylreader.entity.BookDetail;
-import com.wulinpeng.daiylreader.entity.BookShort;
-import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
+import wulinpeng.com.framework.base.net.ApiConstant;
+import com.wulinpeng.daiylreader.bean.BookDetail;
+import com.wulinpeng.daiylreader.bean.BookUpdateInfo;
 import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
 import com.wulinpeng.daiylreader.search.view.SearchActivity;

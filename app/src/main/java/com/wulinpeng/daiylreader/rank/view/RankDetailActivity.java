@@ -12,14 +12,11 @@ import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
-import com.wulinpeng.daiylreader.base.BaseActivity;
-import com.wulinpeng.daiylreader.entity.BookShort;
+import wulinpeng.com.framework.base.ui.BaseActivity;
+import com.wulinpeng.daiylreader.bean.BookShort;
 import com.wulinpeng.daiylreader.rank.contract.IRankDetailPresenter;
 import com.wulinpeng.daiylreader.rank.contract.IRankDetailView;
 import com.wulinpeng.daiylreader.rank.presenter.RankDetailPresenterImpl;
-import com.wulinpeng.daiylreader.search.contract.ISearchResultPresenter;
-import com.wulinpeng.daiylreader.search.presenter.SearchResultPresenterImpl;
-import com.wulinpeng.daiylreader.search.view.SearchResultActivity;
 
 import java.util.ArrayList;
 import java.util.List;

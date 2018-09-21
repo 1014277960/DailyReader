@@ -1,38 +1,32 @@
 package com.wulinpeng.daiylreader.self.presenter;
 
-import com.wulinpeng.daiylreader.api.ReaderApi;
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
-import com.wulinpeng.daiylreader.entity.BookCollection;
-import com.wulinpeng.daiylreader.entity.BookDetail;
-import com.wulinpeng.daiylreader.entity.BookShort;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
+import com.wulinpeng.daiylreader.bean.BookCollection;
 import com.wulinpeng.daiylreader.manager.CacheManager;
-import com.wulinpeng.daiylreader.search.contract.ISearchView;
 import com.wulinpeng.daiylreader.self.contract.ISelfPresenter;
 import com.wulinpeng.daiylreader.self.contract.ISelfView;
 import com.wulinpeng.daiylreader.util.RxUtil;
 
-import java.util.List;
+import wulinpeng.com.framework.base.mvp.BasePresenter;
 
 /**
  * @author wulinpeng
  * @datetime: 17/2/20 下午9:16
  * @description:
  */
-public class SelfPresenterImpl implements ISelfPresenter {
+public class SelfPresenterImpl extends BasePresenter<ISelfView> implements ISelfPresenter {
 
-    private ISelfView rootView;
-
-    public SelfPresenterImpl(ISelfView rootView) {
-        this.rootView = rootView;
+    public SelfPresenterImpl(ISelfView mRootView) {
+        super(mRootView);
     }
 
     @Override
     public void getCollection() {
-        rootView.showLoading(true);
+        mRootView.showLoading(true);
         BookCollection collection = CacheManager.getInstance().getCollection();
         if (collection == null || collection.getBooks() == null || collection.getBooks().size() == 0) {
-            rootView.showLoading(false);
-            rootView.onLoadNull();
+            mRootView.showLoading(false);
+            mRootView.onLoadNull();
             return;
         }
         String id = "";
@@ -45,11 +39,11 @@ public class SelfPresenterImpl implements ISelfPresenter {
         ReaderApiManager.getInstance().getBookUpdateInfo(id)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(updateInfos -> {
-                    rootView.onCollectionFinish(collection, updateInfos);
-                    rootView.showLoading(false);
+                    mRootView.onCollectionFinish(collection, updateInfos);
+                    mRootView.showLoading(false);
                 }, throwable -> {
-                    rootView.onError(throwable.getMessage());
-                    rootView.showLoading(false);
+                    mRootView.onError(throwable.getMessage());
+                    mRootView.showLoading(false);
                 });
     }
 }

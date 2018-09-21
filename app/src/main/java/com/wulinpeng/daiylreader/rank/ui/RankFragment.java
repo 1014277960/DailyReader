@@ -5,10 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.api.ReaderApi;
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
-import com.wulinpeng.daiylreader.base.BaseFragment;
-import com.wulinpeng.daiylreader.entity.RankingInfoResponse;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
+import wulinpeng.com.framework.base.ui.BaseFragment;
+import com.wulinpeng.daiylreader.bean.RankingInfoResponse;
 import com.wulinpeng.daiylreader.rank.adapter.RankingAdapter;
 import com.wulinpeng.daiylreader.util.RxUtil;
 

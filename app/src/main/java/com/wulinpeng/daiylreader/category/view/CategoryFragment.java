@@ -4,12 +4,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.base.BaseFragment;
+import wulinpeng.com.framework.base.ui.BaseFragment;
 import com.wulinpeng.daiylreader.category.adapter.CatAdapter;
 import com.wulinpeng.daiylreader.category.contract.ICategoryPresenter;
 import com.wulinpeng.daiylreader.category.contract.ICategoryView;
 import com.wulinpeng.daiylreader.category.presenter.CategoryPresenterImpl;
-import com.wulinpeng.daiylreader.entity.CatResponse;
+import com.wulinpeng.daiylreader.bean.CatResponse;
 
 import java.util.ArrayList;
 import java.util.List;

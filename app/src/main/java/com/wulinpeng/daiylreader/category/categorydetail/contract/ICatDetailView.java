@@ -1,6 +1,6 @@
 package com.wulinpeng.daiylreader.category.categorydetail.contract;
 
-import com.wulinpeng.daiylreader.entity.BookShort;
+import com.wulinpeng.daiylreader.bean.BookShort;
 
 import java.util.List;
 

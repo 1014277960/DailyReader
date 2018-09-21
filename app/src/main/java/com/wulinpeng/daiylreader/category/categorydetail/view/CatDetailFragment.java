@@ -8,13 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.base.BaseFragment;
-import com.wulinpeng.daiylreader.base.FooterRVAdapter;
+import wulinpeng.com.framework.base.ui.BaseFragment;
+import wulinpeng.com.framework.base.ui.FooterRVAdapter;
 import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailPresenter;
 import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailView;
 import com.wulinpeng.daiylreader.category.categorydetail.presenter.CatDetailPresenterImpl;
-import com.wulinpeng.daiylreader.entity.BookShort;
+import com.wulinpeng.daiylreader.bean.BookShort;
 
 import java.util.ArrayList;
 import java.util.List;

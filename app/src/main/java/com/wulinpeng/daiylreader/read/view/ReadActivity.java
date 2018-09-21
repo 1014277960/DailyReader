@@ -5,15 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.bean.ChaptersResponse;
 import com.wulinpeng.daiylreader.read.contract.IReadView;
 import com.wulinpeng.daiylreader.read.event.RecycleBitmapEvent;
 import com.wulinpeng.daiylreader.read.presenter.ReadPresenterImp;
-import com.wulinpeng.daiylreader.read.ui.BookFactory;
 import com.wulinpeng.daiylreader.read.ui.NewBookFactory;
 import com.wulinpeng.daiylreader.read.ui.ReadView;
 

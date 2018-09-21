@@ -2,42 +2,41 @@ package com.wulinpeng.daiylreader.rank.presenter;
 
 import android.content.Context;
 
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
 import com.wulinpeng.daiylreader.rank.contract.IRankDetailPresenter;
 import com.wulinpeng.daiylreader.rank.contract.IRankDetailView;
-import com.wulinpeng.daiylreader.search.contract.ISearchResultView;
 import com.wulinpeng.daiylreader.util.RxUtil;
+
+import wulinpeng.com.framework.base.mvp.BasePresenter;
 
 /**
  * @author wulinpeng
  * @datetime: 17/2/20 下午4:19
  * @description:
  */
-public class RankDetailPresenterImpl implements IRankDetailPresenter {
-
-    private IRankDetailView rootView;
+public class RankDetailPresenterImpl extends BasePresenter<IRankDetailView> implements IRankDetailPresenter {
 
     private Context context;
 
     private String id;
 
     public RankDetailPresenterImpl(Context context, IRankDetailView rootView, String id) {
-        this.rootView = rootView;
+        super(rootView);
         this.context = context;
         this.id = id;
     }
 
     @Override
     public void loadData() {
-        rootView.showLoading(true);
+        mRootView.showLoading(true);
         ReaderApiManager.getInstance().getRanking(id)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(rankingResponse -> {
-                    rootView.onLoadFinish(rankingResponse.getRanking().getBooks());
-                    rootView.showLoading(false);
+                    mRootView.onLoadFinish(rankingResponse.getRanking().getBooks());
+                    mRootView.showLoading(false);
                 }, throwable -> {
-                    rootView.onLoadError(throwable.getMessage());
-                    rootView.showLoading(false);
+                    mRootView.onLoadError(throwable.getMessage());
+                    mRootView.showLoading(false);
                 });
     }
 

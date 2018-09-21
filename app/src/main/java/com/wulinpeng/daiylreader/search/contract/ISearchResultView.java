@@ -1,15 +1,17 @@
 package com.wulinpeng.daiylreader.search.contract;
 
-import com.wulinpeng.daiylreader.entity.BookShort;
+import com.wulinpeng.daiylreader.bean.BookShort;
 
 import java.util.List;
+
+import wulinpeng.com.framework.base.mvp.IBaseContract;
 
 /**
  * @author wulinpeng
  * @datetime: 17/2/20 下午2:20
  * @description:
  */
-public interface ISearchResultView {
+public interface ISearchResultView extends IBaseContract.IBaseView {
 
     public void showLoading(boolean loading);
 

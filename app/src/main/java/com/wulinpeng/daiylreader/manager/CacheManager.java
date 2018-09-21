@@ -1,17 +1,12 @@
 package com.wulinpeng.daiylreader.manager;
 
-import com.wulinpeng.daiylreader.entity.BookCollection;
-import com.wulinpeng.daiylreader.entity.BookDetail;
-import com.wulinpeng.daiylreader.entity.BookShort;
-import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
-import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.bean.BookCollection;
+import com.wulinpeng.daiylreader.bean.ChapterDetailResponse;
+import com.wulinpeng.daiylreader.bean.ChaptersResponse;
 import com.wulinpeng.daiylreader.util.CacheHelper;
-
-import org.codehaus.jackson.type.TypeReference;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author wulinpeng

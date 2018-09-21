@@ -9,12 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.api.ApiConstant;
-import com.wulinpeng.daiylreader.base.FooterRVAdapter;
+import wulinpeng.com.framework.base.net.ApiConstant;
+import wulinpeng.com.framework.base.ui.FooterRVAdapter;
 import com.wulinpeng.daiylreader.bookdetail.view.BookDetailActivity;
-import com.wulinpeng.daiylreader.entity.BookShort;
+import com.wulinpeng.daiylreader.bean.BookShort;
 import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
 
 import java.util.List;

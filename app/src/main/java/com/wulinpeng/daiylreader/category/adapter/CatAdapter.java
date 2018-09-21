@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.category.categorydetail.ui.CategoryDetailActivity;
-import com.wulinpeng.daiylreader.entity.CatResponse;
+import com.wulinpeng.daiylreader.bean.CatResponse;
 
 import java.util.List;
 

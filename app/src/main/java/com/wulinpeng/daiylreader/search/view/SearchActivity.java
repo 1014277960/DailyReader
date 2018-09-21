@@ -2,17 +2,15 @@ package com.wulinpeng.daiylreader.search.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.base.BaseActivity;
+import wulinpeng.com.framework.base.ui.BaseActivity;
 import com.wulinpeng.daiylreader.search.adapter.HistoryAdapter;
 import com.wulinpeng.daiylreader.search.contract.ISearchPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchView;

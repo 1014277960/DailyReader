@@ -1,29 +1,28 @@
 package com.wulinpeng.daiylreader.read.presenter;
 
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
-import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
+import com.wulinpeng.daiylreader.bean.ChaptersResponse;
 import com.wulinpeng.daiylreader.manager.CacheManager;
 import com.wulinpeng.daiylreader.read.contract.IReadPresenter;
 import com.wulinpeng.daiylreader.read.contract.IReadView;
 import com.wulinpeng.daiylreader.util.RxUtil;
 
 import rx.Observable;
+import wulinpeng.com.framework.base.mvp.BasePresenter;
 
 /**
  * @author wulinpeng
  * @datetime: 17/2/11 下午8:02
  * @description:
  */
-public class ReadPresenterImp implements IReadPresenter {
-
-    private IReadView rootView;
+public class ReadPresenterImp extends BasePresenter<IReadView> implements IReadPresenter {
 
     private ReaderApiManager apiManager;
 
     private CacheManager cacheManager;
 
     public ReadPresenterImp(IReadView rootView) {
-        this.rootView = rootView;
+        super(rootView);
         apiManager = ReaderApiManager.getInstance();
         cacheManager = CacheManager.getInstance();
     }
@@ -39,12 +38,12 @@ public class ReadPresenterImp implements IReadPresenter {
                     .flatMap(chaptersResponse -> Observable.just(chaptersResponse.getMixToc()))
                     .subscribe(mixToc -> onChaptersSuccess(mixToc));
         } else {
-            rootView.onChaptersInfoSuccess(info);
+            mRootView.onChaptersInfoSuccess(info);
         }
     }
 
     private void onChaptersSuccess(ChaptersResponse.MixToc mixToc) {
-        rootView.onChaptersInfoSuccess(mixToc);
+        mRootView.onChaptersInfoSuccess(mixToc);
         // 缓存章节信息
         cacheManager.saveChapters(mixToc);
     }

@@ -1,10 +1,8 @@
 package com.wulinpeng.daiylreader.search.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.wulinpeng.daiylreader.api.ReaderApi;
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
 import com.wulinpeng.daiylreader.manager.HistoryManager;
 import com.wulinpeng.daiylreader.search.contract.ISearchPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchView;
@@ -13,22 +11,22 @@ import com.wulinpeng.daiylreader.util.RxUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import wulinpeng.com.framework.base.mvp.BasePresenter;
+
 /**
  * @author wulinpeng
  * @datetime: 17/2/19 下午10:15
  * @description:
  */
-public class SearchPresenterImpl implements ISearchPresenter {
+public class SearchPresenterImpl extends BasePresenter<ISearchView> implements ISearchPresenter {
 
     private Context context;
-
-    private ISearchView rootView;
 
     private List<String> history = new ArrayList<>();
 
     public SearchPresenterImpl(Context context, ISearchView rootView) {
+        super(rootView);
         this.context = context;
-        this.rootView = rootView;
     }
 
     @Override
@@ -36,8 +34,8 @@ public class SearchPresenterImpl implements ISearchPresenter {
         ReaderApiManager.getInstance().getHotWords()
                 .compose(RxUtil.rxScheduler())
                 .subscribe(hotWordsResponse -> {
-                    rootView.onHotWordsFinish(getPages(hotWordsResponse.getHotWords()));
-                }, throwable -> rootView.onError(throwable.getMessage()));
+                    mRootView.onHotWordsFinish(getPages(hotWordsResponse.getHotWords()));
+                }, throwable -> mRootView.onError(throwable.getMessage()));
     }
 
     private List<List<String>> getPages(String[] words) {
@@ -68,7 +66,7 @@ public class SearchPresenterImpl implements ISearchPresenter {
         if (h != null) {
             history.addAll(HistoryManager.getHistory());
         }
-        rootView.onHistoryFinish(history);
+        mRootView.onHistoryFinish(history);
     }
 
     @Override
@@ -76,7 +74,7 @@ public class SearchPresenterImpl implements ISearchPresenter {
         if (!history.contains(content)) {
             history.add(content);
             HistoryManager.saveHistory(history);
-            rootView.onHistoryFinish(history);
+            mRootView.onHistoryFinish(history);
         }
     }
 
@@ -84,6 +82,6 @@ public class SearchPresenterImpl implements ISearchPresenter {
     public void clearHistory() {
         history.clear();
         HistoryManager.saveHistory(history);
-        rootView.onHistoryFinish(history);
+        mRootView.onHistoryFinish(history);
     }
 }

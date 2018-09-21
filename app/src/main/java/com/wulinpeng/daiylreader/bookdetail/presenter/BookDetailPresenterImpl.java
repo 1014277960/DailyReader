@@ -2,20 +2,18 @@ package com.wulinpeng.daiylreader.bookdetail.presenter;
 
 import android.content.Context;
 
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
 import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailPresenter;
 import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailView;
 import com.wulinpeng.daiylreader.bookdetail.event.CollectionChangeEvent;
-import com.wulinpeng.daiylreader.entity.BookCollection;
-import com.wulinpeng.daiylreader.entity.BookDetail;
-import com.wulinpeng.daiylreader.entity.BookShort;
+import com.wulinpeng.daiylreader.bean.BookCollection;
+import com.wulinpeng.daiylreader.bean.BookDetail;
 import com.wulinpeng.daiylreader.manager.CacheManager;
 import com.wulinpeng.daiylreader.util.RxUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author wulinpeng

@@ -4,29 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.api.ApiConstant;
-import com.wulinpeng.daiylreader.base.BaseActivity;
+import wulinpeng.com.framework.base.net.ApiConstant;
+import wulinpeng.com.framework.base.ui.BaseActivity;
 import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailPresenter;
 import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailView;
 import com.wulinpeng.daiylreader.bookdetail.presenter.BookDetailPresenterImpl;
 import com.wulinpeng.daiylreader.bookdetail.ui.IntroTextView;
-import com.wulinpeng.daiylreader.entity.BookDetail;
+import com.wulinpeng.daiylreader.bean.BookDetail;
 import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
 import com.wulinpeng.daiylreader.util.TimeUtil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;

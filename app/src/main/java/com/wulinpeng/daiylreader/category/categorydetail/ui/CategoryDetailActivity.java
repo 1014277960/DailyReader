@@ -10,9 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.tencent.bugly.crashreport.CrashReport;
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.base.BaseActivity;
+import wulinpeng.com.framework.base.ui.BaseActivity;
 import com.wulinpeng.daiylreader.category.categorydetail.view.CatDetailFragment;
 
 import java.util.ArrayList;

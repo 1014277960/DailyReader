@@ -5,12 +5,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.base.BaseFragment;
+import wulinpeng.com.framework.base.ui.BaseFragment;
 import com.wulinpeng.daiylreader.bookdetail.event.CollectionChangeEvent;
-import com.wulinpeng.daiylreader.entity.BookCollection;
-import com.wulinpeng.daiylreader.entity.BookDetail;
-import com.wulinpeng.daiylreader.entity.BookShort;
-import com.wulinpeng.daiylreader.entity.BookUpdateInfo;
+import com.wulinpeng.daiylreader.bean.BookCollection;
+import com.wulinpeng.daiylreader.bean.BookDetail;
+import com.wulinpeng.daiylreader.bean.BookUpdateInfo;
 import com.wulinpeng.daiylreader.self.adapter.SelfAdapter;
 import com.wulinpeng.daiylreader.self.contract.ISelfPresenter;
 import com.wulinpeng.daiylreader.self.contract.ISelfView;

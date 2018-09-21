@@ -1,6 +1,6 @@
 package com.wulinpeng.daiylreader.category.categorydetail.presenter;
 
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
 import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailPresenter;
 import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailView;
 import com.wulinpeng.daiylreader.util.RxUtil;

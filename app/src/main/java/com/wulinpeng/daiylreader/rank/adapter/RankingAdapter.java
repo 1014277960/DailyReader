@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.api.ApiConstant;
-import com.wulinpeng.daiylreader.entity.RankingInfoResponse;
+import wulinpeng.com.framework.base.net.ApiConstant;
+import com.wulinpeng.daiylreader.bean.RankingInfoResponse;
 import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
 import com.wulinpeng.daiylreader.rank.view.RankDetailActivity;
 

@@ -9,13 +9,12 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.api.ReaderApiManager;
-import com.wulinpeng.daiylreader.entity.ChapterDetailResponse;
-import com.wulinpeng.daiylreader.entity.ChaptersResponse;
+import com.wulinpeng.daiylreader.net.ReaderApiManager;
+import com.wulinpeng.daiylreader.bean.ChapterDetailResponse;
+import com.wulinpeng.daiylreader.bean.ChaptersResponse;
 import com.wulinpeng.daiylreader.manager.CacheManager;
 import com.wulinpeng.daiylreader.read.event.OnChapterLoadEvent;
 import com.wulinpeng.daiylreader.util.RxUtil;

@@ -3,7 +3,6 @@ package com.wulinpeng.daiylreader.search.view;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +12,8 @@ import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
-import com.wulinpeng.daiylreader.base.BaseActivity;
-import com.wulinpeng.daiylreader.entity.BookShort;
+import wulinpeng.com.framework.base.ui.BaseActivity;
+import com.wulinpeng.daiylreader.bean.BookShort;
 import com.wulinpeng.daiylreader.search.contract.ISearchResultPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchResultView;
 import com.wulinpeng.daiylreader.search.presenter.SearchResultPresenterImpl;
