@@ -1,4 +1,4 @@
-package com.wulinpeng.daiylreader.manager.imageloader;
+package wulinpeng.com.framework.base.ui.image.imageloader;
 
 import android.content.Context;
 
@@ -9,5 +9,5 @@ import android.content.Context;
  */
 public interface IImageLoaderStrategy {
 
-    public void load(Context context, ImageLoader imageLoader);
+    public void load(Context context, ImageLoadEntity imageLoadEntity);
 }

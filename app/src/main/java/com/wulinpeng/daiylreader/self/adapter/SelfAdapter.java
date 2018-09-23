@@ -12,7 +12,9 @@ import com.wulinpeng.daiylreader.R;
 import wulinpeng.com.framework.base.net.ApiConstant;
 import com.wulinpeng.daiylreader.bean.BookDetail;
 import com.wulinpeng.daiylreader.bean.BookUpdateInfo;
-import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
+
+import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
+import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
 import com.wulinpeng.daiylreader.search.view.SearchActivity;
 import com.wulinpeng.daiylreader.util.TimeUtil;
@@ -67,10 +69,10 @@ public class SelfAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         BookDetail bookDetail = books.get(position);
         BookUpdateInfo updateInfo = updateInfos.get(position);
 //        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + bookDetail.getCover(), R.drawable.book_cover_default, viewHolder.cover);
-        ImageLoader imageLoader = new ImageLoader.Builder().url(ApiConstant.IMG_BASE_URL + bookDetail.getCover())
+        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(ApiConstant.IMG_BASE_URL + bookDetail.getCover())
                 .placeHolder(R.drawable.book_cover_default)
                 .target(viewHolder.cover).build();
-        com.wulinpeng.daiylreader.manager.imageloader.ImageHelper.getInstance().load(context, imageLoader);
+        ImageHelper.getInstance().load(context, imageLoadEntity);
         viewHolder.title.setText(bookDetail.getTitle());
         viewHolder.updateInfo.setText(TimeUtil.getTimeInterval(updateInfo.getUpdated()) + "更新:" + updateInfo.getLastChapter());
     }

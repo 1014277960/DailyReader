@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.bean.BookShort;
 import com.wulinpeng.daiylreader.bookdetail.view.BookDetailActivity;
-import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
+
+import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
+import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 
 import java.util.List;
 
@@ -53,10 +55,10 @@ public class BookShortAdapter extends RecyclerView.Adapter {
         CatDetailViewHolder viewHolder = (CatDetailViewHolder) holder;
         BookShort bookShort = data.get(position);
 //        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + bookShort.getCover(), R.drawable.book_cover_default, viewHolder.imageView);
-        ImageLoader imageLoader = new ImageLoader.Builder().url(ApiConstant.IMG_BASE_URL + bookShort.getCover())
+        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(ApiConstant.IMG_BASE_URL + bookShort.getCover())
                 .placeHolder(R.drawable.book_cover_default)
                 .target(viewHolder.imageView).build();
-        com.wulinpeng.daiylreader.manager.imageloader.ImageHelper.getInstance().load(context, imageLoader);
+        ImageHelper.getInstance().load(context, imageLoadEntity);
         viewHolder.titleView.setText(bookShort.getTitle());
         viewHolder.authorView.setText(bookShort.getAuthor());
         viewHolder.shotIntroView.setText(bookShort.getShortIntro());

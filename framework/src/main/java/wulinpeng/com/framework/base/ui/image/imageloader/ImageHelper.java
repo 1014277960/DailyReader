@@ -1,4 +1,4 @@
-package com.wulinpeng.daiylreader.manager.imageloader;
+package wulinpeng.com.framework.base.ui.image.imageloader;
 
 import android.content.Context;
 
@@ -15,9 +15,9 @@ public class ImageHelper {
         imageLoaderStrategy = new GlideImageLoaderStrategy();
     }
 
-    public void load(Context context, ImageLoader imageLoader) {
+    public void load(Context context, ImageLoadEntity imageLoadEntity) {
         if (imageLoaderStrategy != null) {
-            imageLoaderStrategy.load(context, imageLoader);
+            imageLoaderStrategy.load(context, imageLoadEntity);
         }
     }
 
@@ -35,7 +35,7 @@ public class ImageHelper {
     private enum Singleton {
         HOLDER;
         private ImageHelper instance;
-        private Singleton() {
+        Singleton() {
             instance = new ImageHelper();
         }
 

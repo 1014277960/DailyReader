@@ -1,4 +1,4 @@
-package com.wulinpeng.daiylreader.manager.imageloader;
+package wulinpeng.com.framework.base.ui.image.imageloader;
 
 import android.widget.ImageView;
 
@@ -7,13 +7,13 @@ import android.widget.ImageView;
  * @datetime: 17/4/9 下午8:07
  * @description:
  */
-public class ImageLoader {
+public class ImageLoadEntity {
 
     private String url;
     private int placeHolder;
     private ImageView target;
 
-    public ImageLoader(Builder builder) {
+    public ImageLoadEntity(Builder builder) {
         this.url = builder.url;
         this.placeHolder = builder.placeHolder;
         this.target = builder.target;
@@ -66,8 +66,8 @@ public class ImageLoader {
             return this;
         }
 
-        public ImageLoader build() {
-            return new ImageLoader(this);
+        public ImageLoadEntity build() {
+            return new ImageLoadEntity(this);
         }
     }
 }
