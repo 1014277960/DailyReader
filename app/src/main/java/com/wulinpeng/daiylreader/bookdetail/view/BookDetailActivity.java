@@ -21,6 +21,7 @@ import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
 import com.wulinpeng.daiylreader.util.TimeUtil;
+import com.wulinpeng.daiylreader.util.UrlUtil;
 
 import java.util.List;
 
@@ -108,8 +109,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
 
     @Override
     public void onBookDetailFinish(BookDetail bookDetail) {
-//        ImageHelper.load(this, ApiConstant.IMG_BASE_URL + bookDetail.getCover(), R.drawable.book_cover_default, cover);
-        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(ApiConstant.IMG_BASE_URL + bookDetail.getCover())
+        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(bookDetail.getCover()))
                 .placeHolder(R.drawable.book_cover_default)
                 .target(cover).build();
         ImageHelper.getInstance().load(this, imageLoadEntity);

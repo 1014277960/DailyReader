@@ -15,6 +15,7 @@ import com.wulinpeng.daiylreader.bean.RankingInfoResponse;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 import com.wulinpeng.daiylreader.rank.view.RankDetailActivity;
+import com.wulinpeng.daiylreader.util.UrlUtil;
 
 import java.util.List;
 
@@ -50,8 +51,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RankingViewHolder viewHolder = (RankingViewHolder) holder;
         RankingInfoResponse.Rank rank = data.get(position);
-//        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + rank.getCover(), viewHolder.iocn);
-        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(ApiConstant.IMG_BASE_URL + rank.getCover())
+        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(rank.getCover()))
                 .placeHolder(R.drawable.book_cover_default)
                 .target(viewHolder.iocn).build();
         ImageHelper.getInstance().load(context, imageLoadEntity);
