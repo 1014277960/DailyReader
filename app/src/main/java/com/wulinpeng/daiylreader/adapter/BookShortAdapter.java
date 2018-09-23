@@ -45,12 +45,12 @@ public class BookShortAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_book_short, parent, false);
-        return new BookShortAdapter.CatDetailViewHolder(view);
+        return new CatDetailViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        BookShortAdapter.CatDetailViewHolder viewHolder = (BookShortAdapter.CatDetailViewHolder) holder;
+        CatDetailViewHolder viewHolder = (CatDetailViewHolder) holder;
         BookShort bookShort = data.get(position);
 //        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + bookShort.getCover(), R.drawable.book_cover_default, viewHolder.imageView);
         ImageLoader imageLoader = new ImageLoader.Builder().url(ApiConstant.IMG_BASE_URL + bookShort.getCover())
