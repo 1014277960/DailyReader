@@ -11,8 +11,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import wulinpeng.com.framework.base.ui.BaseActivity;
+
+import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import com.wulinpeng.daiylreader.bean.BookShort;
 import com.wulinpeng.daiylreader.rank.contract.IRankDetailPresenter;
 import com.wulinpeng.daiylreader.rank.contract.IRankDetailView;

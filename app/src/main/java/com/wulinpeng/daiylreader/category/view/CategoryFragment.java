@@ -2,6 +2,7 @@ package com.wulinpeng.daiylreader.category.view;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
 import wulinpeng.com.framework.base.ui.BaseFragment;
@@ -89,5 +90,10 @@ public class CategoryFragment extends BaseFragment implements ICategoryView {
         pressDate.clear();
         pressDate.addAll(response.getPress());
         pressAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDataLoadFail(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

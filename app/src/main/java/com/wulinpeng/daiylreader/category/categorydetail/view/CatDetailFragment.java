@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
 import wulinpeng.com.framework.base.ui.BaseFragment;
-import wulinpeng.com.framework.base.ui.FooterRVAdapter;
+
 import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailPresenter;
 import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailView;
@@ -20,13 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.loadmore.LoadMoreAdapter;
 
 /**
  * @author wulinpeng
  * @datetime: 17/2/19 下午2:55
  * @description:
  */
-public class CatDetailFragment extends BaseFragment implements ICatDetailView, SwipeRefreshLayout.OnRefreshListener {
+public class CatDetailFragment extends BaseFragment implements ICatDetailView, SwipeRefreshLayout.OnRefreshListener, LoadMoreAdapter.OnLoadMoreListener {
 
     @BindView(R.id.refresh_layout)
     public SwipeRefreshLayout refreshLayout;
@@ -35,6 +36,8 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
     public RecyclerView recyclerView;
 
     private BookShortAdapter adapter;
+
+    private LoadMoreAdapter loadMoreAdapter;
 
     private List<BookShort> data;
 
@@ -73,7 +76,8 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
     protected void initViews() {
         data = new ArrayList<>();
         adapter = new BookShortAdapter(getContext(), data);
-        recyclerView.setAdapter(adapter);
+        loadMoreAdapter = LoadMoreAdapter.wrap(getContext(), adapter, this);
+        recyclerView.setAdapter(loadMoreAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         refreshLayout.setOnRefreshListener(this);
@@ -81,13 +85,6 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
             @Override
             public void run() {
                 presenter.firstLoad();
-            }
-        });
-
-        adapter.setOnLoadMoreListener(new FooterRVAdapter.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                presenter.loadMore();
             }
         });
     }
@@ -115,24 +112,29 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
 
     @Override
     public void onLoadMoreError(String msg) {
-        adapter.setLoadingState(false);
+        loadMoreAdapter.updateLoadMoreState(LoadMoreAdapter.LoadingState.LOADING_STATE_ERROR);
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLoadMoreFinish(List<BookShort> data) {
         this.data.addAll(data);
-        adapter.setLoadingState(false);
+        loadMoreAdapter.updateLoadMoreState(LoadMoreAdapter.LoadingState.LOADING_STATE_NORMAL);
     }
 
     @Override
     public void onLoadMoreEnd() {
-        adapter.setLoadingState(false);
+        loadMoreAdapter.updateLoadMoreState(LoadMoreAdapter.LoadingState.LOADING_STATE_NO_MORE);
         Toast.makeText(getContext(), "没有更多了", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRefresh() {
         presenter.firstLoad();
+    }
+
+    @Override
+    public void onLoadMore() {
+        presenter.loadMore();
     }
 }

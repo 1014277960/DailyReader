@@ -11,7 +11,9 @@ import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.wulinpeng.daiylreader.Application;
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.net.ReaderApiManager;
 import com.wulinpeng.daiylreader.bean.ChapterDetailResponse;
@@ -160,7 +162,8 @@ public class NewBookFactory {
     private void getChapterFromNet(int chapter) {
         ReaderApiManager.getInstance().getChapterDetail(mChaptersInfo.getChapters().get(chapter).getLink())
                 .compose(RxUtil.rxScheduler())
-                .subscribe(chapterDetailResponse -> dealResponse(chapterDetailResponse));
+                .subscribe(chapterDetailResponse -> dealResponse(chapterDetailResponse),
+                        throwable -> Toast.makeText(Application.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     /**

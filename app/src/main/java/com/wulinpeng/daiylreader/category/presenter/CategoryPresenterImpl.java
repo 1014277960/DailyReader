@@ -22,6 +22,7 @@ public class CategoryPresenterImpl extends BasePresenter<ICategoryView> implemen
     public void getCatData() {
         ReaderApiManager.getInstance().getCategoryInfo()
                 .compose(RxUtil.rxScheduler())
-                .subscribe(catResponse -> mRootView.onCatDataLoad(catResponse));
+                .subscribe(catResponse -> mRootView.onCatDataLoad(catResponse),
+                        throwable -> mRootView.onDataLoadFail(throwable.getMessage()));
     }
 }

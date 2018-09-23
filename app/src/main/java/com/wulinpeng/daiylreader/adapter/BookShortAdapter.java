@@ -10,24 +10,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.net.ApiConstant;
-import wulinpeng.com.framework.base.ui.FooterRVAdapter;
-import com.wulinpeng.daiylreader.bookdetail.view.BookDetailActivity;
 import com.wulinpeng.daiylreader.bean.BookShort;
+import com.wulinpeng.daiylreader.bookdetail.view.BookDetailActivity;
 import com.wulinpeng.daiylreader.manager.imageloader.ImageLoader;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import wulinpeng.com.framework.base.net.ApiConstant;
 
 /**
  * @author wulinpeng
- * @datetime: 17/2/19 下午3:05
+ * @datetime: 18/9/22 下午5:46
  * @description:
  */
-public class BookShortAdapter extends FooterRVAdapter {
-
+public class BookShortAdapter extends RecyclerView.Adapter {
     private Context context;
 
     private List<BookShort> data;
@@ -46,21 +44,13 @@ public class BookShortAdapter extends FooterRVAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = null;
-        if (viewType == TYPE_FOOTER) {
-            view = inflater.inflate(R.layout.footer_layout, parent, false);
-        } else {
-            view = inflater.inflate(R.layout.item_book_short, parent, false);
-        }
-        return new CatDetailViewHolder(view);
+        View view = inflater.inflate(R.layout.item_book_short, parent, false);
+        return new BookShortAdapter.CatDetailViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_FOOTER) {
-            return;
-        }
-        CatDetailViewHolder viewHolder = (CatDetailViewHolder) holder;
+        BookShortAdapter.CatDetailViewHolder viewHolder = (BookShortAdapter.CatDetailViewHolder) holder;
         BookShort bookShort = data.get(position);
 //        ImageHelper.load(context, ApiConstant.IMG_BASE_URL + bookShort.getCover(), R.drawable.book_cover_default, viewHolder.imageView);
         ImageLoader imageLoader = new ImageLoader.Builder().url(ApiConstant.IMG_BASE_URL + bookShort.getCover())
@@ -72,18 +62,9 @@ public class BookShortAdapter extends FooterRVAdapter {
         viewHolder.shotIntroView.setText(bookShort.getShortIntro());
         viewHolder.readMsgView.setText(bookShort.getLatelyFollower() + "人在追｜" + bookShort.getRetentionRatio() + "%读者存留率");
     }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (loading && position == getItemCount() - 1) {
-            return TYPE_FOOTER;
-        }
-        return TYPE_NORMAL;
-    }
-
     @Override
     public int getItemCount() {
-        return data.size() + (loading ? 1 : 0);
+        return data.size();
     }
 
     class CatDetailViewHolder extends RecyclerView.ViewHolder {

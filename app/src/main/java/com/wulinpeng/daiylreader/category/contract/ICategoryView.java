@@ -12,4 +12,6 @@ import wulinpeng.com.framework.base.mvp.IBaseContract;
 public interface ICategoryView extends IBaseContract.IBaseView {
 
     public void onCatDataLoad(CatResponse response);
+
+    public void onDataLoadFail(String msg);
 }

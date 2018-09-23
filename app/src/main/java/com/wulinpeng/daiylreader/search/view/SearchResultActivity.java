@@ -11,8 +11,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
-import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import wulinpeng.com.framework.base.ui.BaseActivity;
+
+import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import com.wulinpeng.daiylreader.bean.BookShort;
 import com.wulinpeng.daiylreader.search.contract.ISearchResultPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchResultView;
@@ -22,13 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.loadmore.LoadMoreAdapter;
 
 /**
  * @author wulinpeng
  * @datetime: 17/2/20 下午2:15
  * @description:
  */
-public class SearchResultActivity extends BaseActivity implements ISearchResultView {
+public class SearchResultActivity extends BaseActivity implements ISearchResultView, LoadMoreAdapter.OnLoadMoreListener {
 
     @BindView(R.id.common_toolbar)
     public Toolbar toolbar;
@@ -42,6 +44,8 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultV
     private List<BookShort> data = new ArrayList<>();
 
     private BookShortAdapter adapter;
+
+    private LoadMoreAdapter loadMoreAdapter;
 
     private ISearchResultPresenter presenter;
 
@@ -69,8 +73,10 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultV
         presenter = new SearchResultPresenterImpl(this, this, getIntent().getStringExtra("content"));
 
         adapter = new BookShortAdapter(this, data);
+        loadMoreAdapter = LoadMoreAdapter.wrap(this, adapter, this);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(loadMoreAdapter);
         refreshLayout.setOnRefreshListener(() -> presenter.firstLoad());
 
         refreshLayout.post(new Runnable() {
@@ -109,11 +115,12 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultV
         this.data.clear();
         this.data.addAll(data);
         adapter.notifyDataSetChanged();
+        loadMoreAdapter.updateLoadMoreState(LoadMoreAdapter.LoadingState.LOADING_STATE_NORMAL);
     }
 
     @Override
     public void onLoadMoreError(String msg) {
-        adapter.setLoadingState(false);
+        loadMoreAdapter.updateLoadMoreState(LoadMoreAdapter.LoadingState.LOADING_STATE_ERROR);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -121,11 +128,17 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultV
     public void onLoadMoreFinish(List<BookShort> data) {
         this.data.addAll(data);
         adapter.notifyDataSetChanged();
+        loadMoreAdapter.updateLoadMoreState(LoadMoreAdapter.LoadingState.LOADING_STATE_NORMAL);
     }
 
     @Override
     public void onLoadMoreEnd() {
-        adapter.setLoadingState(false);
+        loadMoreAdapter.updateLoadMoreState(LoadMoreAdapter.LoadingState.LOADING_STATE_NO_MORE);
         Toast.makeText(this, "没有更多了", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoadMore() {
+        presenter.loadMore();
     }
 }
