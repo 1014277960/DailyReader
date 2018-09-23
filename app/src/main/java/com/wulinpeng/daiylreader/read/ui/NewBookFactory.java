@@ -245,7 +245,6 @@ public class NewBookFactory {
             try {
                 strParagraph = new String(paraBuf, charset);
             } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             strParagraph = strParagraph.replaceAll("\r\n", "");
@@ -267,7 +266,6 @@ public class NewBookFactory {
                 bufferBegin += lines.get(0).getBytes(charset).length;
                 lines.remove(0);
             } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -288,7 +286,6 @@ public class NewBookFactory {
             try {
                 strParagraph = new String(paraBuf, charset);
             } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             String strReturn = "";
@@ -317,7 +314,6 @@ public class NewBookFactory {
                     bufferEnd -= (strParagraph + strReturn)
                             .getBytes(charset).length;
                 } catch (UnsupportedEncodingException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
