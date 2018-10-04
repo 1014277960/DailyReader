@@ -45,9 +45,13 @@ public class ReadView extends View {
     private Path mPath1;
     private Path mPath2;
     Bitmap mCurrentBitmap;
+    Bitmap mCurrentBitmapWithNormalBg;
     Bitmap mNextBitmap;
     Canvas mCurrentCanvas;
+    Canvas mCurrentNormalCanvas;
     Canvas mNextCanvas;
+
+    private int mBackPageColor = Color.rgb(229, 207, 157);
 
     Bitmap mBackgroundBitmap;
 
@@ -107,6 +111,9 @@ public class ReadView extends View {
         // 两个canvas绑定bitmap，通过对canvas的绘制来直接改变两个bitmap
         mCurrentBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mCurrentCanvas = new Canvas(mCurrentBitmap);
+        // 用于绘制当前页面的背面，使用纯色的bg是因为做对称变换的时候矩形无法覆盖背页，故使用纯色填充
+        mCurrentBitmapWithNormalBg = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
+        mCurrentNormalCanvas = new Canvas(mCurrentBitmapWithNormalBg);
         mNextBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mNextCanvas = new Canvas(mNextBitmap);
 
@@ -122,7 +129,8 @@ public class ReadView extends View {
         mBookFactory = bookFactory;
         int state = mBookFactory.openBook(0);
         if (state == BookFactory.STATE_SUCCESS) {
-            mBookFactory.draw(mCurrentCanvas);
+            mBookFactory.draw(mCurrentCanvas, true);
+            mBookFactory.draw(mCurrentNormalCanvas, false);
             postInvalidate();
         } else if (state == BookFactory.STATE_ASYN) {
             mIsAsyn = true;
@@ -151,7 +159,8 @@ public class ReadView extends View {
             mTouch.y = event.getRawY();
             calcCornerXY(mTouch.x, mTouch.y);
             // 绘制当前页面
-            mBookFactory.draw(mCurrentCanvas);
+            mBookFactory.draw(mCurrentCanvas, true);
+            mBookFactory.draw(mCurrentNormalCanvas, false);
             int state = -1;
             //向右
             if(DragToRight()) {
@@ -162,7 +171,7 @@ public class ReadView extends View {
             if (state == BookFactory.STATE_SUCCESS) {
                 // 中断动画
                 abortAnimation();
-                mBookFactory.draw(mNextCanvas);
+                mBookFactory.draw(mNextCanvas, true);
             } else if (state == BookFactory.STATE_NULL) {
                 if (DragToRight()) {
                     Toast.makeText(getContext(), "当前是第一页哦", Toast.LENGTH_SHORT).show();
@@ -210,8 +219,9 @@ public class ReadView extends View {
      */
     @Subscribe
     public void onChapterLoad(OnChapterLoadEvent event) {
-        mBookFactory.draw(mCurrentCanvas);
-        mBookFactory.draw(mNextCanvas);
+        mBookFactory.draw(mCurrentCanvas, true);
+        mBookFactory.draw(mCurrentNormalCanvas, false);
+        mBookFactory.draw(mNextCanvas, true);
         invalidate();
         mIsAsyn = false;
     }
@@ -234,7 +244,7 @@ public class ReadView extends View {
         drawCurrentPageArea(canvas, mCurrentBitmap);
         drawNextPageAreaAndShadow(canvas, mNextBitmap);
         drawCurrentPageShadow(canvas);
-        drawCurrentBackArea(canvas, mCurrentBitmap);
+        drawCurrentBackArea(canvas, mCurrentBitmapWithNormalBg);
     }
 
     /**
@@ -555,6 +565,8 @@ public class ReadView extends View {
         canvas.save();
         canvas.clipPath(mPath1);
         canvas.clipPath(mPath2, Region.Op.INTERSECT);
+        // 当前页面对称变换后的矩形会和背页区域有一定的空隙，故背页不绘制正常bg，只绘制文字，在此之前填充背景色
+        canvas.drawColor(mBackPageColor);
         canvas.drawBitmap(bitmap, matrix, null);
         canvas.restore();
     }

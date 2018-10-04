@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
@@ -177,9 +178,14 @@ public class NewBookFactory {
     }
 
     // 将当前页绘制到canvas上
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, boolean withBackground) {
         if(null != lines || lines.size() > 0){
-            canvas.drawBitmap(backgroundBitmap, null, new RectF(0, 0, width, height), null);
+            if (withBackground) {
+                canvas.drawBitmap(backgroundBitmap, null, new RectF(0, 0, width, height), null);
+            } else {
+                // 清除canvas内容
+                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            }
             int y = normalMargin;
             for (String strLine : lines) {
                 y += normalMargin + fontSize;
