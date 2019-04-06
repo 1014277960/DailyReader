@@ -1,7 +1,5 @@
 package com.wulinpeng.daiylreader.search.contract;
 
-import java.util.List;
-
 import wulinpeng.com.framework.base.mvp.IBaseContract;
 
 /**
