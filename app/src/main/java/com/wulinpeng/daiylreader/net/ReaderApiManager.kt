@@ -14,6 +14,7 @@ import com.wulinpeng.daiylreader.bean.RecommendBookListResponse
 import com.wulinpeng.daiylreader.bean.RecommendBookResponse
 import com.wulinpeng.daiylreader.bean.ReviewResponse
 import com.wulinpeng.daiylreader.bean.SearchResponse
+import kotlinx.coroutines.Deferred
 
 import retrofit2.Retrofit
 import rx.Observable
@@ -53,7 +54,7 @@ object ReaderApiManager {
         return mReaderApi.getReview(bookId, start, limit)
     }
 
-    fun searchBooks(word: String, start: Int, limit: Int): Observable<SearchResponse> {
+    fun searchBooks(word: String, start: Int, limit: Int): Deferred<SearchResponse> {
         return mReaderApi.searchBooks(word, start, limit)
     }
 

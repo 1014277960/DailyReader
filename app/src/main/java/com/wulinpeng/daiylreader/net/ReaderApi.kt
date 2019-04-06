@@ -14,6 +14,7 @@ import com.wulinpeng.daiylreader.bean.RecommendBookListResponse
 import com.wulinpeng.daiylreader.bean.RecommendBookResponse
 import com.wulinpeng.daiylreader.bean.ReviewResponse
 import com.wulinpeng.daiylreader.bean.SearchResponse
+import kotlinx.coroutines.Deferred
 
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -70,7 +71,7 @@ interface ReaderApi {
      * @return
      */
     @GET("book/fuzzy-search")
-    fun searchBooks(@Query("query") word: String, @Query("start") start: Int, @Query("limit") limit: Int): Observable<SearchResponse>
+    fun searchBooks(@Query("query") word: String, @Query("start") start: Int, @Query("limit") limit: Int): Deferred<SearchResponse>
 
     /**
      * 获取书籍详细信息
