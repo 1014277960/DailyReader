@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Vector;
 
 
+import wulinpeng.com.framework.base.ui.DisplayUtil;
+
 import static com.wulinpeng.daiylreader.Application.getContext;
 
 /**
@@ -79,6 +81,7 @@ public class NewBookFactory {
     private String charset = "UTF-8";
 
     private Bitmap backgroundBitmap;
+    private Bitmap loadingBitmap;
 
     // 当前章节数
     private int currentChapterIndex;
@@ -109,6 +112,17 @@ public class NewBookFactory {
         lineCount = contentHeight / (fontSize + normalMargin);
 
         backgroundBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.bg_read);
+        createLoadingBitmap();
+    }
+
+    private void createLoadingBitmap() {
+        loadingBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Paint paint = new Paint();
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(DisplayUtil.dip2px(Application.getContext(), 20));
+        Canvas canvas = new Canvas(loadingBitmap);
+        canvas.drawBitmap(backgroundBitmap, 0, 0, null);
+        canvas.drawText("正在加载中...", width / 2, height / 2, paint);
     }
 
     private void getWidthAndHeight() {
@@ -160,6 +174,7 @@ public class NewBookFactory {
         }
     }
 
+    // TODO: 18/10/4 加载失败后的处理
     private void getChapterFromNet(int chapter) {
         ReaderApiManager.getInstance().getChapterDetail(mChaptersInfo.getChapters().get(chapter).getLink())
                 .compose(RxUtil.rxScheduler())
@@ -377,8 +392,8 @@ public class NewBookFactory {
         return title;
     }
 
-    public Bitmap getBackgroundBitmap() {
-        return backgroundBitmap;
+    public Bitmap getLoadingBitmap() {
+        return loadingBitmap;
     }
 
     @Subscribe

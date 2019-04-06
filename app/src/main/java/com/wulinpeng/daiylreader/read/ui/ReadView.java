@@ -5,10 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -163,7 +160,7 @@ public class ReadView extends View {
             mBookFactory.draw(mCurrentNormalCanvas, false);
             int state = -1;
             //向右
-            if(DragToRight()) {
+            if(dragToRight()) {
                 state = mBookFactory.prePage();
             } else {
                 state = mBookFactory.nextPage();
@@ -173,7 +170,7 @@ public class ReadView extends View {
                 abortAnimation();
                 mBookFactory.draw(mNextCanvas, true);
             } else if (state == BookFactory.STATE_NULL) {
-                if (DragToRight()) {
+                if (dragToRight()) {
                     Toast.makeText(getContext(), "当前是第一页哦", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "最后一页了哦", Toast.LENGTH_SHORT).show();
@@ -184,9 +181,9 @@ public class ReadView extends View {
                 // 下一章或者上一章的时候需要时间加载，那么直接启动动画翻页，然后当前页就是bg,然后等待
                 // todo 禁止操作直到加载出来
                 mIsAsyn = true;
-                mNextCanvas.drawBitmap(mBookFactory.getBackgroundBitmap(), null, new RectF(0, 0, mWidth, mHeight), null);
+                mNextCanvas.drawBitmap(mBookFactory.getLoadingBitmap(), null, new RectF(0, 0, mWidth, mHeight), null);
                 startAnimation(700);
-                Toast.makeText(getContext(), "正在加载", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "正在加载", Toast.LENGTH_SHORT).show();
             }
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -202,7 +199,7 @@ public class ReadView extends View {
                 mTouch.x = mCornerX +0.1f;
                 mTouch.y = mCornerY +0.1f;
                 // 没有翻页，恢复bookFactory的当前页
-                if (DragToRight()) {
+                if (dragToRight()) {
                     mBookFactory.nextPage();
                 } else {
                     mBookFactory.prePage();
@@ -636,7 +633,7 @@ public class ReadView extends View {
             return true;
         return false;
     }
-    public boolean DragToRight() {
+    public boolean dragToRight() {
         if (mCornerX > 0)
             return false;
         return true;
