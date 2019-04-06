@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.ui.BaseActivity;
 import com.wulinpeng.daiylreader.search.adapter.HistoryAdapter;
 import com.wulinpeng.daiylreader.search.contract.ISearchPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchView;
@@ -26,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.BaseActivity;
 
 /**
  * @author wulinpeng

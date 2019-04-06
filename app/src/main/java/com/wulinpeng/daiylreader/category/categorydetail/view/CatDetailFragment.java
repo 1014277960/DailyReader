@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.ui.BaseFragment;
 
 import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import com.wulinpeng.daiylreader.category.categorydetail.contract.ICatDetailPresenter;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.BaseFragment;
 import wulinpeng.com.framework.base.ui.loadmore.LoadMoreAdapter;
 
 /**

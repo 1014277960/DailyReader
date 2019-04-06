@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
 import com.wulinpeng.daiylreader.net.ReaderApiManager;
-import wulinpeng.com.framework.base.ui.BaseFragment;
 import com.wulinpeng.daiylreader.bean.RankingInfoResponse;
 import com.wulinpeng.daiylreader.rank.adapter.RankingAdapter;
 import com.wulinpeng.daiylreader.util.RxUtil;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.BaseFragment;
 
 /**
  * @author wulinpeng

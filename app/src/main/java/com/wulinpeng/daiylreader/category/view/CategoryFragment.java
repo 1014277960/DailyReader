@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.ui.BaseFragment;
 import com.wulinpeng.daiylreader.category.adapter.CatAdapter;
 import com.wulinpeng.daiylreader.category.contract.ICategoryPresenter;
 import com.wulinpeng.daiylreader.category.contract.ICategoryView;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.BaseFragment;
 
 /**
  * @author wulinpeng

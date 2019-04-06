@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
 
-import wulinpeng.com.framework.base.ui.BaseActivity;
 import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailPresenter;
 import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailView;
 import com.wulinpeng.daiylreader.bookdetail.presenter.BookDetailPresenterImpl;
 import com.wulinpeng.daiylreader.bookdetail.ui.IntroTextView;
 import com.wulinpeng.daiylreader.bean.BookDetail;
 
+import wulinpeng.com.framework.base.ui.BaseActivity;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
 
 import com.wulinpeng.daiylreader.read.view.ReadActivity;

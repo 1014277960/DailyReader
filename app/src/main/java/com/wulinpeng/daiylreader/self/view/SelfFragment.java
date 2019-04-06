@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.ui.BaseFragment;
 import com.wulinpeng.daiylreader.bookdetail.event.CollectionChangeEvent;
 import com.wulinpeng.daiylreader.bean.BookCollection;
 import com.wulinpeng.daiylreader.bean.BookDetail;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.BaseFragment;
 
 /**
  * @author wulinpeng

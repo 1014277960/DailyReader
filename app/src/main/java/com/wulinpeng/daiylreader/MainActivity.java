@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.widget.ImageView;
 
-import wulinpeng.com.framework.base.ui.BaseActivity;
 import com.wulinpeng.daiylreader.category.view.CategoryFragment;
 import com.wulinpeng.daiylreader.rank.ui.RankFragment;
 import com.wulinpeng.daiylreader.search.view.SearchActivity;
@@ -20,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import wulinpeng.com.framework.base.ui.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 

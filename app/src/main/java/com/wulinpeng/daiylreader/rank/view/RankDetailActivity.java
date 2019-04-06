@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.ui.BaseActivity;
 
 import com.wulinpeng.daiylreader.adapter.BookShortAdapter;
 import com.wulinpeng.daiylreader.bean.BookShort;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.BaseActivity;
 
 /**
  * @author wulinpeng
