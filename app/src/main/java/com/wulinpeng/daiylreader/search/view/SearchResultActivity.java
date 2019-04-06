@@ -73,7 +73,7 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultV
         presenter = new SearchResultPresenterImpl(this, this, getIntent().getStringExtra("content"));
 
         adapter = new BookShortAdapter(this, data);
-        loadMoreAdapter = LoadMoreAdapter.wrap(this, adapter, this);
+        loadMoreAdapter = LoadMoreAdapter.Companion.wrap(this, adapter, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(loadMoreAdapter);

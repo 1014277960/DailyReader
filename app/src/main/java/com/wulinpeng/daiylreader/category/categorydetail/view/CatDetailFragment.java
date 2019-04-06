@@ -76,7 +76,7 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
     protected void initViews() {
         data = new ArrayList<>();
         adapter = new BookShortAdapter(getContext(), data);
-        loadMoreAdapter = LoadMoreAdapter.wrap(getContext(), adapter, this);
+        loadMoreAdapter = LoadMoreAdapter.Companion.wrap(getContext(), adapter, this);
         recyclerView.setAdapter(loadMoreAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
