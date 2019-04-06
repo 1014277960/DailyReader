@@ -18,7 +18,7 @@ import com.wulinpeng.daiylreader.bookdetail.ui.IntroTextView;
 import com.wulinpeng.daiylreader.bean.BookDetail;
 
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
-import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
+
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
 import com.wulinpeng.daiylreader.util.TimeUtil;
 import com.wulinpeng.daiylreader.util.UrlUtil;
@@ -26,6 +26,7 @@ import com.wulinpeng.daiylreader.util.UrlUtil;
 import java.util.List;
 
 import butterknife.BindView;
+import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 
 /**
  * @author wulinpeng
@@ -109,9 +110,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
 
     @Override
     public void onBookDetailFinish(BookDetail bookDetail) {
-        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(bookDetail.getCover()))
-                .placeHolder(R.drawable.book_cover_default)
-                .target(cover).build();
+        ImageLoadEntity imageLoadEntity = new ImageLoadEntity(UrlUtil.getCoverUrl(bookDetail.getCover()), R.drawable.book_cover_default, cover);
         ImageHelper.INSTANCE.load(this, imageLoadEntity);
         title.setText(bookDetail.getTitle());
         author.setText(bookDetail.getAuthor());

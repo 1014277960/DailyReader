@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
+
 import com.wulinpeng.daiylreader.rank.view.RankDetailActivity;
 import com.wulinpeng.daiylreader.util.UrlUtil;
 
@@ -49,9 +50,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RankingViewHolder viewHolder = (RankingViewHolder) holder;
         RankingInfoResponse.Rank rank = data.get(position);
-        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(rank.getCover()))
-                .placeHolder(R.drawable.book_cover_default)
-                .target(viewHolder.iocn).build();
+        ImageLoadEntity imageLoadEntity = new ImageLoadEntity(UrlUtil.getCoverUrl(rank.getCover()), R.drawable.book_cover_default, viewHolder.iocn);
         ImageHelper.INSTANCE.load(context, imageLoadEntity);
         viewHolder.textView.setText(rank.getTitle());
     }

@@ -15,12 +15,12 @@ import com.wulinpeng.daiylreader.bookdetail.view.BookDetailActivity;
 import com.wulinpeng.daiylreader.util.UrlUtil;
 
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
-import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 
 /**
  * @author wulinpeng
@@ -54,9 +54,7 @@ public class BookShortAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         CatDetailViewHolder viewHolder = (CatDetailViewHolder) holder;
         BookShort bookShort = data.get(position);
-        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(bookShort.getCover()))
-                .placeHolder(R.drawable.book_cover_default)
-                .target(viewHolder.imageView).build();
+        ImageLoadEntity imageLoadEntity = new ImageLoadEntity(UrlUtil.getCoverUrl(bookShort.getCover()), R.drawable.book_cover_default, viewHolder.imageView);
         ImageHelper.INSTANCE.load(context, imageLoadEntity);
         viewHolder.titleView.setText(bookShort.getTitle());
         viewHolder.authorView.setText(bookShort.getAuthor());

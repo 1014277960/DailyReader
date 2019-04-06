@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
+
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
 import com.wulinpeng.daiylreader.search.view.SearchActivity;
 import com.wulinpeng.daiylreader.util.TimeUtil;
@@ -67,9 +68,7 @@ public class SelfAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         UpdateInfoViewHolder viewHolder = (UpdateInfoViewHolder) holder;
         BookDetail bookDetail = books.get(position);
         BookUpdateInfo updateInfo = updateInfos.get(position);
-        ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(bookDetail.getCover()))
-                .placeHolder(R.drawable.book_cover_default)
-                .target(viewHolder.cover).build();
+        ImageLoadEntity imageLoadEntity = new ImageLoadEntity(UrlUtil.getCoverUrl(bookDetail.getCover()), R.drawable.book_cover_default, viewHolder.cover);
         ImageHelper.INSTANCE.load(context, imageLoadEntity);
         viewHolder.title.setText(bookDetail.getTitle());
         viewHolder.updateInfo.setText(TimeUtil.getTimeInterval(updateInfo.getUpdated()) + "更新:" + updateInfo.getLastChapter());
