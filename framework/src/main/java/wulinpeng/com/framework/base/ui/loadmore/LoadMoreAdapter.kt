@@ -42,6 +42,7 @@ class LoadMoreAdapter private constructor(private val mContext: Context, private
                     if (mLoadMoreListener != null && mState != LoadingState.LOADING_STATE_LOADING && mState != LoadingState.LOADING_STATE_NO_MORE) {
                         mState = LoadingState.LOADING_STATE_LOADING
                         notifyDataSetChanged()
+                        recyclerView?.scrollToPosition(itemCount - 1)
                         mLoadMoreListener.onLoadMore()
                     }
                 }
