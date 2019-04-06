@@ -54,7 +54,7 @@ public class RankFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        ReaderApiManager.getInstance().getRankingInfo()
+        ReaderApiManager.INSTANCE.getRankingInfo()
                 .compose(RxUtil.rxScheduler())
                 .subscribe(rankingInfoResponse -> {
                     maleRanks.clear();

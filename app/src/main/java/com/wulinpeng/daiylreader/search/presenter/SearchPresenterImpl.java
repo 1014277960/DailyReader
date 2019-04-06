@@ -31,7 +31,7 @@ public class SearchPresenterImpl extends BasePresenter<ISearchView> implements I
 
     @Override
     public void getHotWords() {
-        ReaderApiManager.getInstance().getHotWords()
+        ReaderApiManager.INSTANCE.getHotWords()
                 .compose(RxUtil.rxScheduler())
                 .subscribe(hotWordsResponse -> {
                     mRootView.onHotWordsFinish(getPages(hotWordsResponse.getHotWords()));

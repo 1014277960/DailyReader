@@ -23,7 +23,7 @@ public class ReadPresenterImp extends BasePresenter<IReadView> implements IReadP
 
     public ReadPresenterImp(IReadView rootView) {
         super(rootView);
-        apiManager = ReaderApiManager.getInstance();
+        apiManager = ReaderApiManager.INSTANCE;
         cacheManager = CacheManager.getInstance();
     }
 

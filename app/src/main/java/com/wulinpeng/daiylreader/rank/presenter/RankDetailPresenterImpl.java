@@ -29,7 +29,7 @@ public class RankDetailPresenterImpl extends BasePresenter<IRankDetailView> impl
     @Override
     public void loadData() {
         mRootView.showLoading(true);
-        ReaderApiManager.getInstance().getRanking(id)
+        ReaderApiManager.INSTANCE.getRanking(id)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(rankingResponse -> {
                     mRootView.onLoadFinish(rankingResponse.getRanking().getBooks());

@@ -36,7 +36,7 @@ public class SelfPresenterImpl extends BasePresenter<ISelfView> implements ISelf
                 id += ",";
             }
         }
-        ReaderApiManager.getInstance().getBookUpdateInfo(id)
+        ReaderApiManager.INSTANCE.getBookUpdateInfo(id)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(updateInfos -> {
                     mRootView.onCollectionFinish(collection, updateInfos);

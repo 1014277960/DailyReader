@@ -129,7 +129,7 @@ public class BookFactory {
     }
 
     private void getChapterFromNet(int chapter, int start) {
-        ReaderApiManager.getInstance().getChapterDetail(mChaptersInfo.getChapters().get(chapter).getLink())
+        ReaderApiManager.INSTANCE.getChapterDetail(mChaptersInfo.getChapters().get(chapter).getLink())
                 .compose(RxUtil.rxScheduler())
                 .subscribe(chapterDetailResponse -> dealResponse(chapterDetailResponse, start),
                         throwable -> Toast.makeText(Application.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show());

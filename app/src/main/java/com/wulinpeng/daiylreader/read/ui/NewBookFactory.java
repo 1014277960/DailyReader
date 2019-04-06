@@ -176,7 +176,7 @@ public class NewBookFactory {
 
     // TODO: 18/10/4 加载失败后的处理
     private void getChapterFromNet(int chapter) {
-        ReaderApiManager.getInstance().getChapterDetail(mChaptersInfo.getChapters().get(chapter).getLink())
+        ReaderApiManager.INSTANCE.getChapterDetail(mChaptersInfo.getChapters().get(chapter).getLink())
                 .compose(RxUtil.rxScheduler())
                 .subscribe(chapterDetailResponse -> dealResponse(chapterDetailResponse),
                         throwable -> Toast.makeText(Application.getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show());

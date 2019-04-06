@@ -38,7 +38,7 @@ public class CatDetailPresenterImpl implements ICatDetailPresenter {
         rootView.showLoading(true);
         // 重置计数
         currentCount = 0;
-        ReaderApiManager.getInstance().getCatDetail(major, gender, type, currentCount, pageCount)
+        ReaderApiManager.INSTANCE.getCatDetail(major, gender, type, currentCount, pageCount)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(catDetailResponse -> {
                     rootView.showLoading(false);
@@ -56,7 +56,7 @@ public class CatDetailPresenterImpl implements ICatDetailPresenter {
             // 全部数据已经加载完毕
             rootView.onLoadMoreEnd();
         }
-        ReaderApiManager.getInstance().getCatDetail(major, gender, type, currentCount, pageCount)
+        ReaderApiManager.INSTANCE.getCatDetail(major, gender, type, currentCount, pageCount)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(catDetailResponse -> {
                     rootView.showLoading(false);

@@ -38,7 +38,7 @@ public class BookDetailPresenterImpl extends BasePresenter<IBookDetailView> impl
 
     @Override
     public void getBookDetail() {
-        ReaderApiManager.getInstance().getBookDetail(bookId)
+        ReaderApiManager.INSTANCE.getBookDetail(bookId)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(bookDetail -> {
                     mRootView.onBookDetailFinish(bookDetail);

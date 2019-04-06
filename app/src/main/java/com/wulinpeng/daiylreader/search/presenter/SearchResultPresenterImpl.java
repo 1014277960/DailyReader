@@ -36,7 +36,7 @@ public class SearchResultPresenterImpl extends BasePresenter<ISearchResultView> 
     public void firstLoad() {
         mRootView.showLoading(true);
         currentCount = 0;
-        ReaderApiManager.getInstance().searchBooks(content, currentCount, pageCount)
+        ReaderApiManager.INSTANCE.searchBooks(content, currentCount, pageCount)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(searchResponse -> {
                     mRootView.onFirstLoadFinish(searchResponse.getBooks());
@@ -54,7 +54,7 @@ public class SearchResultPresenterImpl extends BasePresenter<ISearchResultView> 
             mRootView.onLoadMoreEnd();
             return;
         }
-        ReaderApiManager.getInstance().searchBooks(content, currentCount, pageCount)
+        ReaderApiManager.INSTANCE.searchBooks(content, currentCount, pageCount)
                 .compose(RxUtil.rxScheduler())
                 .subscribe(searchResponse -> {
                     mRootView.onLoadMoreFinish(searchResponse.getBooks());
