@@ -48,7 +48,7 @@ public class ReaderApiManager {
     }
 
     private ReaderApiManager() {
-        Retrofit retrofit = RetrofitClient.getClient();
+        Retrofit retrofit = RetrofitClient.INSTANCE.getClient();
         mReaderApi = retrofit.create(ReaderApi.class);
     }
 
