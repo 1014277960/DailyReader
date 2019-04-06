@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.Transition;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.Toolbar;
+import android.transition.TransitionSet;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -98,6 +100,16 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
+        initTransition();
+    }
+
+    private void initTransition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Transition transition = getWindow().getSharedElementEnterTransition();
+            if (transition instanceof TransitionSet) {
+                ((TransitionSet) transition).addTransition(new BookCoverTransition());
+            }
+        }
         supportPostponeEnterTransition();
     }
 
