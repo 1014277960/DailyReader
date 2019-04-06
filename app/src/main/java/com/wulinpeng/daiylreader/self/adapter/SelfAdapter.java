@@ -9,10 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.net.ApiConstant;
 import com.wulinpeng.daiylreader.bean.BookDetail;
 import com.wulinpeng.daiylreader.bean.BookUpdateInfo;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
@@ -21,9 +22,6 @@ import com.wulinpeng.daiylreader.util.TimeUtil;
 import com.wulinpeng.daiylreader.util.UrlUtil;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author wulinpeng
@@ -72,7 +70,7 @@ public class SelfAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(bookDetail.getCover()))
                 .placeHolder(R.drawable.book_cover_default)
                 .target(viewHolder.cover).build();
-        ImageHelper.getInstance().load(context, imageLoadEntity);
+        ImageHelper.INSTANCE.load(context, imageLoadEntity);
         viewHolder.title.setText(bookDetail.getTitle());
         viewHolder.updateInfo.setText(TimeUtil.getTimeInterval(updateInfo.getUpdated()) + "更新:" + updateInfo.getLastChapter());
     }

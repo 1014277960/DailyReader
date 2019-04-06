@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.net.ApiConstant;
+
 import wulinpeng.com.framework.base.ui.BaseActivity;
 import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailPresenter;
 import com.wulinpeng.daiylreader.bookdetail.contract.IBookDetailView;
@@ -112,7 +112,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
         ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(bookDetail.getCover()))
                 .placeHolder(R.drawable.book_cover_default)
                 .target(cover).build();
-        ImageHelper.getInstance().load(this, imageLoadEntity);
+        ImageHelper.INSTANCE.load(this, imageLoadEntity);
         title.setText(bookDetail.getTitle());
         author.setText(bookDetail.getAuthor());
         setReadMsg(bookDetail);

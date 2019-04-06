@@ -9,18 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wulinpeng.daiylreader.R;
-import wulinpeng.com.framework.base.net.ApiConstant;
 import com.wulinpeng.daiylreader.bean.RankingInfoResponse;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
 import wulinpeng.com.framework.base.ui.image.imageloader.ImageLoadEntity;
 import com.wulinpeng.daiylreader.rank.view.RankDetailActivity;
 import com.wulinpeng.daiylreader.util.UrlUtil;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author wulinpeng
@@ -54,7 +52,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(rank.getCover()))
                 .placeHolder(R.drawable.book_cover_default)
                 .target(viewHolder.iocn).build();
-        ImageHelper.getInstance().load(context, imageLoadEntity);
+        ImageHelper.INSTANCE.load(context, imageLoadEntity);
         viewHolder.textView.setText(rank.getTitle());
     }
 

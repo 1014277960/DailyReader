@@ -21,7 +21,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import wulinpeng.com.framework.base.net.ApiConstant;
 
 /**
  * @author wulinpeng
@@ -58,7 +57,7 @@ public class BookShortAdapter extends RecyclerView.Adapter {
         ImageLoadEntity imageLoadEntity = new ImageLoadEntity.Builder().url(UrlUtil.getCoverUrl(bookShort.getCover()))
                 .placeHolder(R.drawable.book_cover_default)
                 .target(viewHolder.imageView).build();
-        ImageHelper.getInstance().load(context, imageLoadEntity);
+        ImageHelper.INSTANCE.load(context, imageLoadEntity);
         viewHolder.titleView.setText(bookShort.getTitle());
         viewHolder.authorView.setText(bookShort.getAuthor());
         viewHolder.shotIntroView.setText(bookShort.getShortIntro());
