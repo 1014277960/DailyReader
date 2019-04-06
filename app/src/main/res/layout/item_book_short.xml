@@ -17,6 +17,7 @@
             android:id="@+id/img"
             android:layout_width="60dp"
             android:layout_height="80dp"
+            android:transitionName="transition_cover"
             android:scaleType="centerCrop"/>
 
         <LinearLayout

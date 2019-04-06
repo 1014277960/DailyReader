@@ -1,10 +1,17 @@
 package com.wulinpeng.daiylreader.bookdetail.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +29,8 @@ import wulinpeng.com.framework.base.ui.image.imageloader.ImageHelper;
 import com.wulinpeng.daiylreader.read.view.ReadActivity;
 import com.wulinpeng.daiylreader.util.TimeUtil;
 import com.wulinpeng.daiylreader.util.UrlUtil;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -73,10 +82,23 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
 
     private IBookDetailPresenter presenter;
 
-    public static void startActivity(Context context, String id) {
+    public static void startActivity(Context context, String id, View coverView) {
         Intent intent = new Intent(context, BookDetailActivity.class);
         intent.putExtra("id", id);
-        context.startActivity(intent);
+        context.startActivity(intent, makeSharedElementBundle((Activity) context, coverView));
+    }
+
+    private static Bundle makeSharedElementBundle(Activity activity, View coverView) {
+        ActivityOptionsCompat optionsCompat =  ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                new Pair<>(coverView, "transition_cover"));
+        return optionsCompat.toBundle();
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        super.onCreate(savedInstanceState);
+        supportPostponeEnterTransition();
     }
 
     @Override
@@ -103,7 +125,11 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                finishAfterTransition();
+            } else {
+                finish();
+            }
         }
         return true;
     }
@@ -112,6 +138,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
     public void onBookDetailFinish(BookDetail bookDetail) {
         ImageLoadEntity imageLoadEntity = new ImageLoadEntity(UrlUtil.getCoverUrl(bookDetail.getCover()), R.drawable.book_cover_default, cover);
         ImageHelper.INSTANCE.load(this, imageLoadEntity);
+        supportStartPostponedEnterTransition();
         title.setText(bookDetail.getTitle());
         author.setText(bookDetail.getAuthor());
         setReadMsg(bookDetail);

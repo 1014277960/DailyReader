@@ -3,11 +3,13 @@ package com.wulinpeng.daiylreader.search.view;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.wulinpeng.daiylreader.R;
@@ -17,6 +19,8 @@ import com.wulinpeng.daiylreader.bean.BookShort;
 import com.wulinpeng.daiylreader.search.contract.ISearchResultPresenter;
 import com.wulinpeng.daiylreader.search.contract.ISearchResultView;
 import com.wulinpeng.daiylreader.search.presenter.SearchResultPresenterImpl;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,12 @@ public class SearchResultActivity extends BaseActivity implements ISearchResultV
         Intent intent = new Intent(context, SearchResultActivity.class);
         intent.putExtra("content", content);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
