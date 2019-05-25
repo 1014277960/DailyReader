@@ -28,6 +28,8 @@ import com.wulinpeng.daiylreader.read.event.RecycleBitmapEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import wulinpeng.com.framework.base.util.UiUtils;
+
 /**
  * @author wulinpeng
  * @datetime: 17/2/8 下午6:37
@@ -135,12 +137,8 @@ public class ReadView extends View {
     }
 
     private void getWidthAndHeight() {
-        WindowManager wm = (WindowManager) getContext()
-                .getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(metrics);
-        mWidth = metrics.widthPixels;
-        mHeight = metrics.heightPixels;
+        mWidth = UiUtils.getScreenWidth(getContext());
+        mHeight = UiUtils.getScreenHeight(getContext());
 
         mMaxLength = (float) Math.hypot(mWidth, mHeight);
     }

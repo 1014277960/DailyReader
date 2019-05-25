@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.transition.Transition;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -104,12 +105,6 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
     }
 
     private void initTransition() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Transition transition = getWindow().getSharedElementEnterTransition();
-            if (transition instanceof TransitionSet) {
-                ((TransitionSet) transition).addTransition(new BookCoverTransition());
-            }
-        }
         supportPostponeEnterTransition();
     }
 
@@ -137,11 +132,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                finishAfterTransition();
-            } else {
-                finish();
-            }
+            ActivityCompat.finishAfterTransition(this);
         }
         return true;
     }

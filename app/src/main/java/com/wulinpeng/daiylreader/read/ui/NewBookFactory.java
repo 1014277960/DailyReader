@@ -40,6 +40,7 @@ import java.util.Vector;
 
 
 import wulinpeng.com.framework.base.ui.DisplayUtil;
+import wulinpeng.com.framework.base.util.UiUtils;
 
 import static com.wulinpeng.daiylreader.Application.getContext;
 
@@ -126,12 +127,8 @@ public class NewBookFactory {
     }
 
     private void getWidthAndHeight() {
-        WindowManager wm = (WindowManager) getContext()
-                .getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(metrics);
-        width = metrics.widthPixels;
-        height = metrics.heightPixels;
+        width = UiUtils.getScreenWidth(getContext());
+        height = UiUtils.getScreenHeight(getContext());
     }
 
     /**
