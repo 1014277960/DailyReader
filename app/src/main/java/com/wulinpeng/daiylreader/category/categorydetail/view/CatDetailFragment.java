@@ -20,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import wulinpeng.com.framework.base.ui.BaseFragment;
+import wulinpeng.com.framework.base.ui.errorview.ErrorView;
 import wulinpeng.com.framework.base.ui.loadmore.LoadMoreAdapter;
 
 /**
@@ -28,6 +29,9 @@ import wulinpeng.com.framework.base.ui.loadmore.LoadMoreAdapter;
  * @description:
  */
 public class CatDetailFragment extends BaseFragment implements ICatDetailView, SwipeRefreshLayout.OnRefreshListener, LoadMoreAdapter.OnLoadMoreListener {
+
+    @BindView(R.id.error_view)
+    public ErrorView errorView;
 
     @BindView(R.id.refresh_layout)
     public SwipeRefreshLayout refreshLayout;
@@ -80,6 +84,8 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
         recyclerView.setAdapter(loadMoreAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        errorView.bindContentView(recyclerView);
+
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.post(new Runnable() {
             @Override
@@ -100,6 +106,8 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
 
     @Override
     public void onFirstLoadError(String msg) {
+        errorView.bindDefaultErrorView(msg);
+        errorView.showError(true);
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -107,7 +115,13 @@ public class CatDetailFragment extends BaseFragment implements ICatDetailView, S
     public void onFirstLoadFinish(List<BookShort> data) {
         this.data.clear();
         this.data.addAll(data);
-        adapter.notifyDataSetChanged();
+        if (data.isEmpty()) {
+            errorView.bindDefaultErrorView("empty");
+            errorView.showError(true);
+        } else {
+            errorView.showError(false);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
