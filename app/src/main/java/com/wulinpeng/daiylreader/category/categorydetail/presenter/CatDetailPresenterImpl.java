@@ -55,6 +55,7 @@ public class CatDetailPresenterImpl implements ICatDetailPresenter {
         if (isEnd) {
             // 全部数据已经加载完毕
             rootView.onLoadMoreEnd();
+            return;
         }
         ReaderApiManager.INSTANCE.getCatDetail(major, gender, type, currentCount, pageCount)
                 .compose(RxUtil.rxScheduler())

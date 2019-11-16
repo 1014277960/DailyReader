@@ -14,7 +14,7 @@ import wulinpeng.com.framework.R
  * @datetime: 18/9/22 下午5:16
  * @description:
  */
-class DefaultFooterView constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr), IFooterView {
+class DefaultFooterView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr), IFooterView {
 
     private var mLoadingView: ProgressBar? = null
     private var mNoMoreView: TextView? = null
